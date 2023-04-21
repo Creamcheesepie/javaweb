@@ -110,7 +110,7 @@
 			</p>
 			<table class="table table-borderless text-center">
 				<tr>
-				<th>상품명</th><th>가격</th><th>수량</th><th>비고</th>
+				<th style="width:100px">상품명</th><th style="width:100px">가격</th><th style="width:60px">수량</th><th style="width:100px">비고</th>
 				</tr>
 				<tr>
 					<td colspan="4" class="text-center">
