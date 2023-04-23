@@ -16,13 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 public class Test3Ok extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
+		request.setCharacterEncoding("utf-8"); //서버에서 문자 인코딩 utf-8로 해달라고 요청.
+		response.setContentType("text/html; charset=utf-8"); // 브라우저에 응답할때, text는 html로, 문자셋은 utf-8로 응답.
 		
 		PrintWriter out = response.getWriter();
 		
-		String name= request.getParameter("name");
-		int age = Integer.parseInt(request.getParameter("age"));
+		//서버에 들어있는 데이터 요청
+		String name= request.getParameter("name"); 
+		int age = Integer.parseInt(request.getParameter("age")); 
 		String gender = request.getParameter("gender");
 		String[] hobbys = request.getParameterValues("hobby");
 		String str = "";

@@ -29,6 +29,7 @@
 <hr/>
 <h2>회원 로그인</h2>
 <hr/>
+
 <form name="loginform" method="post" action="<%=request.getContextPath()%>/t0421/LoginOk">
 <table class="table table-bordered" style="width:500px; height:250px;" align="center">
 	<tr>
@@ -44,9 +45,10 @@
 	</tr>
 	<tr>
 		<th colspan="2" class="text-center">
+		<!-- 로그인 버튼을 누르면 loginCheck 함수가 작동하여 프론트 검사를 함, 그리고 조건에 맞으면 submit으로 form의 데이터를 보냄.  -->
 		<input type="button" value="로그인" onclick="loginCheck()" class="btn btn-success"/>
 		<input type="reset" value="다시 입력" class="btn btn-success"/>
-		<input type="button" value="홈으로" class="btn btn-info" onclick="location.href='main.jsp'"/>
+		<input type="button" value="홈으로" class="btn btn-info" onclick="location.href='Homework.jsp'"/>
 		</th>
 	</tr>
 </table>

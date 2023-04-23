@@ -12,7 +12,7 @@
   <script>
   'use strict'
   
-  function fCheck(){
+  function fCheck(){ //프론트 체크단
 	  let name = myform.name.value.trim();
 	  let age = document.getElementById("age").value;
 	  
@@ -25,7 +25,7 @@
 		 	myform.age.focus();
 	  }
 	  else{
-		  myform.submit();
+		  myform.submit(); //체크 후 데이터 전홍
 	  }
   }
   </script>
@@ -38,7 +38,7 @@
 <p><br/></p>	
 	<div class="container">
 		<h2>값전송 연습</h2>
-		<form name="myform" method="post" action="<%=request.getContextPath()%>/t0420/Test3Ok">
+		<form name="myform" method="post" action="<%=request.getContextPath()%>/t0420/Test3Ok"> <!-- post로 데이터 전송. -->
 		<!-- <form name="myform" method="post" action="test3Ok.jsp"> -->
 			<div class="border">
 				<div>성명 : <input type="text" name="name" id="name" value="hong gill dong" class="form-control"/></div>

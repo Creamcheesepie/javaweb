@@ -6,7 +6,7 @@
 <jsp:include page="/include/bs4.jsp"/>
 <div  style="height:130px; text-align:center">
 <br><br>
-<%-- 	<a href="main.jsp? >sw=guest<페이지 정보 보내는 스위치&member=<%=member2%><<<로그인되었는지 정보 넘겨주기" class="btn btn-outline-primary">방명록</a> | --%>
+<%-- 	<a href="main.jsp? > sw=guest<페이지 정보 보내는 스위치&member=<%=member2%><<<로그인되었는지 정보 넘겨주기" class="btn btn-outline-primary">방명록</a> | --%>
 	<a href="main.jsp?member=<%=member2%>" class="btn btn-outline-primary">홈으로</a> |
 	<a href="main.jsp?sw=guest&member=<%=member2%>" class="btn btn-outline-primary">방명록</a> |
 	<a href="main.jsp?sw=board&member=<%=member2%>" class="btn btn-outline-primary">게시판</a> |
