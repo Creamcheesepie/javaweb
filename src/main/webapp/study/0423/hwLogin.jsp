@@ -20,13 +20,13 @@
       }
     }
   </script>
-  <hr/>
-  <h2>회원 로그인</h2>
-  <hr/>
+
+  <h2 style="margin-top:250px">회원 로그인</h2>
+
   <form name="loginform" method="post" action="<%=request.getContextPath()%>/t0423/hwLoginOk">
-  <table class="table table-bordered" style="width:500px; height:250px;" align="center">
+  <table class="table" style="width:400px; height:250px;" align="center">
     <tr>
-      <th colspan="2" class="text-center">로그인</th>
+      <th colspan="2" class="text-center"></th>
     </tr>
     <tr>
       <th>아이디 : </th>
@@ -45,4 +45,3 @@
     </tr>
   </table>
   </form>
-  <hr/> 
