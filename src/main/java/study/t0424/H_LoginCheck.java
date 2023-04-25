@@ -24,20 +24,25 @@ public class H_LoginCheck extends HttpServlet{
 		Cookie[] cookies = request.getCookies();
 		
 		System.out.println("idSave : " + idSave);
+		Cookie cookieMid = new Cookie("cMid", mid);
+		cookieMid.setPath("/"); //웹 어플리케이선의 '전체(요청)경로'에서 사용(포함)하고자 할 떄에는 '/'로 지정한다.
 		if(idSave.equals("saveOn")) {
-			Cookie cookieMid = new Cookie("cMid", mid);
 			cookieMid.setMaxAge(60*60*24);
 			response.addCookie(cookieMid);
+			System.out.println("ON");
 		}
 		else {		
-			if(cookies!=null) { 
-				for(int i=0;i<cookies.length;i++) {
-					if(cookies[i].getName().equals("cMid")) {
-						cookies[i].setMaxAge(0);
-						response.addCookie(cookies[i]);
-					}
-				}
-			}
+			cookieMid.setMaxAge(0);
+			response.addCookie(cookieMid);
+			System.out.println("Off");
+//			if(cookies!=null) { 
+//				for(int i=0;i<cookies.length;i++) {
+//					if(cookies[i].getName().equals("cMid")) {
+//						cookies[i].setMaxAge(0);
+//						response.addCookie(cookies[i]);
+//					}
+//				}
+//			}
 		}
 		
 		if((mid.equals("admin")||mid.equals("hkd1234")) && pwd.equals("1234")) {

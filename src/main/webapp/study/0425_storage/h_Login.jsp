@@ -10,6 +10,7 @@
 		if(cookies[i].getName().equals("cMid")){
 			mid=cookies[i].getValue();
 			pageContext.setAttribute("mid", mid);
+			break;
 		}
 		else{
 			pageContext.setAttribute("mid", mid);
@@ -17,10 +18,9 @@
 	}
 %>
 
-
 function loginCheck(){
 	let mid = loginform.mid.value.trim();
-	let pwd = document.getElementById("mid").value.trim();
+	let pwd = document.getElementById("pwd").value.trim();
 	
 	if(mid == ""){
 		alert("아이디를 입력하세요.");
