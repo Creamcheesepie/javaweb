@@ -2,38 +2,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script>
 'use strict'
-window.onload = function(){
-	Cookie[] cookies = request.getCookies();
-	for(let i=0; i<cookies.length;i++){
-		if(cookies[i].getName()==("cMid")){
-			if(!(document.getElementById("cMid[i]").value)==""){
-				document.getElementById("idSave").checked=true;
-				document.getElementById("cMid").value = cookies[i].getValue();
-			}
-		}
-	}
-}
 
-function idSave(mid){
-	let tempMid=mid;
-	if(document.getElementById("idSave").checked){
 <%
-	Cookie cookieMid = new Cookie("cMid",tempMid);
-	cookieMid.setMaxAge(60*60*24*7);
-	response.addCookie(cookieMid);
-	%>
-	}
-	else{
-		<%
-		for(int i = 0; i<cookies.length; i++){
-			if(cookies[i].getName().equals("cMid")){
-				cookies[i].setMaxAge(0);
-				response.addCookie(cookies[i]);
-			}
+	Cookie[] cookies =request.getCookies();
+	String mid = "";
+	for(int i=0; i<cookies.length;i++){
+		if(cookies[i].getName().equals("cMid")){
+			mid=cookies[i].getValue();
+			pageContext.setAttribute("mid", mid);
 		}
-		%>
+		else{
+			pageContext.setAttribute("mid", mid);
+		}
 	}
-}
+%>
+
 
 function loginCheck(){
 	let mid = loginform.mid.value.trim();
@@ -60,7 +43,7 @@ function loginCheck(){
 <form name="loginform" method="post" action="<%=request.getContextPath()%>/t0424/H_LoginCheck">
 	<div class="row">
 		<div class="col">아이디 : </div>
-		<div class="col"><input type="text" name="mid" id="mid" autofocus required></div>
+		<div class="col"><input type="text" name="mid" id="mid" autofocus required value="${mid}"></div>
 	</div>
 	<div class="row">
 		<div class="col">비밀번호 : </div>
@@ -68,7 +51,7 @@ function loginCheck(){
 	</div>
 	<div class="row">
 		<div class="col">아이디 저장</div>
-		<div class="col"><input type="checkbox" name="idSave" id="idSave"></div>
+		<div class="col"><input type="checkbox" name="idSave" id="idSave" value="saveOn"></div>
 	</div>
 	<div class="row">
 		<div class="col"><button onclick="loginCheck()">로그인</button></div>
