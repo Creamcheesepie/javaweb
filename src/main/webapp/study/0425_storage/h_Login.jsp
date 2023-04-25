@@ -4,7 +4,7 @@
 'use strict'
 
 <%
-	Cookie[] cookies =request.getCookies();
+/* 	Cookie[] cookies =request.getCookies();
 	String mid = "";
 	for(int i=0; i<cookies.length;i++){
 		if(cookies[i].getName().equals("cMid")){
@@ -15,7 +15,7 @@
 		else{
 			pageContext.setAttribute("mid", mid);
 		}
-	}
+	} */
 %>
 
 function loginCheck(){
