@@ -2,11 +2,12 @@
 <% String member2 = request.getParameter("member") == null? "" : request.getParameter("member"); %>
 <%
 	String logCount = "";
+//아래 부분 수정
 	String logCheck2= session.getAttribute("sLogCheck")==null? "Off" : (String)session.getAttribute("sLogCheck");
-	Cookie[] cookies = request.getCookies();
-	for(int i=0; i<cookies.length;i++){
-		if(cookies[i].getName().equals("cLC")){
-			logCount = cookies[i].getValue();
+	Cookie[] cookies2 = request.getCookies();
+	for(int i=0; i<cookies2.length;i++){
+		if(cookies2[i].getName().equals("cLC")){
+			logCount = cookies2[i].getValue();
 		}
 	}
 	pageContext.setAttribute("logCount", logCount);

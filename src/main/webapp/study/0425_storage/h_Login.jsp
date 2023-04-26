@@ -4,18 +4,18 @@
 'use strict'
 
 <%
-/* 	Cookie[] cookies =request.getCookies();
+	Cookie[] cookies1 =request.getCookies();
 	String mid = "";
-	for(int i=0; i<cookies.length;i++){
-		if(cookies[i].getName().equals("cMid")){
-			mid=cookies[i].getValue();
+	for(int i=0; i<cookies1.length;i++){
+		if(cookies1[i].getName().equals("cMid")){
+			mid=cookies1[i].getValue();
 			pageContext.setAttribute("mid", mid);
 			break;
 		}
 		else{
 			pageContext.setAttribute("mid", mid);
 		}
-	} */
+	} 
 %>
 
 function loginCheck(){

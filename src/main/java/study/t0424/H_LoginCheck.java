@@ -26,7 +26,7 @@ public class H_LoginCheck extends HttpServlet{
 		HttpSession session = request.getSession();
 		Cookie[] cookies = request.getCookies();
 		Date date = new  Date();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String nowDate= format.format(date);
 		
 		
@@ -89,7 +89,7 @@ public class H_LoginCheck extends HttpServlet{
 					if(cookies[i].getName().equals("cLC")) {
 						if(!cSw) { //오늘 기록이 있으면 실행 아래 내용 실행 안시키기. >> 기록된 값이랑 비교, 없거나 있어도 오늘날짜랑 동일하지 않을 때, 카운트하고 오늘날짜 기록시키기. 
 							String temp1 =cookies[i].getValue();
-							int temp2 = Integer.parseInt("temp1");
+							int temp2 = Integer.parseInt(temp1);
 							temp2+=1;
 							cookies[i].setValue(Integer.toString(temp2));
 							response.addCookie(cookies[i]); //기록이 있으면 가져와서 추가
