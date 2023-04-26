@@ -56,8 +56,8 @@
 		</div>
 		<div id="demo2" name="demo2">
 			<c:forEach var="i" begin="1" end="넘겨받은 자료의 개수">
-				<div class='col'>${><}</div>
-				<div class='col'><img src='../../images/${><}.jpg'></div></div>
+				<div class='col'>${a}</div>
+				<div class='col'><img src='../../images/${a}.jpg'></div></div>
 			</c:forEach>
 		</div>
 	</div>
