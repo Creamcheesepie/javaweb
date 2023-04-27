@@ -8,9 +8,27 @@
 	<meta charset="UTF-8">
 	<title>memberMain.jsp</title>
 	<jsp:include page="/include/bs4.jsp"/>
+	<script>
+		'use stirct';
+		
+		function searchCheck(){
+			let temp = '';
+			temp+='검색할 아이디 : ';
+			temp+='<input type="text" name="searchMid" id="searchMid"/>';
+			temp+='<input type="button" value="아이디 검색" onclick="idCheck()" class="btn btn-secondary"/>';
+			
+			demo.innerHTML = temp;
+		}
+		function idCheck(){
+			let mid = document.getElementById("searchMid").value;
+			location.href ="${ctp}/database/LoginSearch?mid="+mid;
+		}
+		
+	</script>
 </head>
 <body>
 	<jsp:include page="/include/memberCheck.jsp"/>
+	<jsp:include page="/include/header.jsp"/>
 <p><br/></p>	
 	<div class="container">
 		<h2>회원 전용 창입니다 -></h2>
@@ -19,13 +37,23 @@
 		<p>보유 포인트 : ${sPoint} /최종 접속일 : ${fn:substring(sLastDate,0,16)}/오늘 접속횟수 : ${sTodayCount}회<p>
 		<hr/>
 		<p>
-		<img src="../../images/2.jpg" width="300px"/>
+		<c:set var="random"><%=(int)(Math.random()*6)+1%></c:set>
+		<img src="../../images/${random}.jpg" width="300px"/>
 		</p>
 		<hr/>
 		<div>
-			<a href="${ctp}/database/Logout" class="btn btn-danger">로그아웃</a>
+		<div class="row">
+			<div class="col"></div>
+			<div class="col"><button type="button" onclick="searchCheck()" class="btn btn-primary form-control">개별조회</button></div>
+			<div class="col"><a href="${ctp}/database/List" class="btn btn-success form-control">전체조회</a></div>
+			<div class="col"><a href="${ctp}/database/Logout" class="btn btn-danger form-control">로그아웃</a></div>
+			<div class="col"></div>
+		</div>
+		<hr/>
+		<div name="demo" id="demo"></div>
 		</div>
 	</div>
 <p><br/></p>
+<jsp:include page="/include/footer.jsp"/>
 </body>
 </html>

@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
  
 @SuppressWarnings("serial")
-@WebServlet("/database/LoginOk")
-public class LoginOk extends HttpServlet {
+@WebServlet("/database/LoginOkOneUpdate")
+public class LoginOkOneupdate extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String mid = request.getParameter("mid")==null? "" : request.getParameter("mid"); 
         String pwd = request.getParameter("pwd")==null? "" : request.getParameter("pwd");
         
-        LoginDAO dao = new LoginDAO();
+        LoginDAOOneupdate dao = new LoginDAOOneupdate();
         
         LoginVO vo = dao.getLoginCheck(mid,pwd); //dao에서 로그인 처리
         
@@ -42,49 +42,48 @@ public class LoginOk extends HttpServlet {
             String nowDate= format.format(date);
             String lastDate =vo.getLastDate();
             lastDate = lastDate.substring(0,10);
-            System.out.println(lastDate);
-            System.out.println(nowDate);
             
-            HttpSession session = request.getSession();
+            int point = vo.getPoint();
+            int todayCount =vo.getTodayCount();
+            
+            
+            
             
             //접속횟수 카운트와 포인트 상승처리.
             if(lastDate.equals(nowDate)) {
                 System.out.println("on?");
-                int todayCount = vo.getTodayCount();
-                dao.setTodayCountUp(mid);
-                if(todayCount<5) { //0부터 카운트 되니까 5보다 적게 설정
-                    dao.setPointPlus(mid);
-                    session.setAttribute("sPoint", vo.getPoint()+10); //DB에 값은 갱신했지만, 갱신하기 전에 값을 읽어오기 때문에 여기에서 +10을 해줬다.
+                todayCount++;
+   
+                if(todayCount<6) { //1부터 카운트 되니까 5보다 적게 설정
+                    point+=10;
                 }
-                else {
-                    session.setAttribute("sPoint", vo.getPoint()); //이제 더 이상 값 추가 안되니까 else로 뺌.
-                }
-                    
             }
             else {
-                dao.setTodayCountReset(mid);
-                dao.setTodayCountUp(mid);
-                dao.setPointPlus(mid);
+            	todayCount=1;
+            	point +=10;
             }
-            dao.setLastDate(mid);
         
             //세션 처리
+            HttpSession session = request.getSession();
             session.setAttribute("sMid", mid);
             session.setAttribute("sName", vo.getName());
             session.setAttribute("sLastDate", vo.getLastDate());
-            session.setAttribute("sTodayCount", vo.getTodayCount()+1);//DB에 값은 갱신했지만, 갱신하기 전에 값을 읽어오기 때문에 여기에서 +1을 해줬다.
+            session.setAttribute("sTodayCount", todayCount);
+            session.setAttribute("sPoint", point);
+            
+            dao.setPointPlus(point, todayCount, mid);
             
             out.print("<script>");
-      			out.print("alert('"+mid+"님 로그인 되었습니다.');");
-      			out.print("location.href='"+request.getContextPath()+"/study/0428_database/memberMain.jsp'");
-      			out.print("</script>");
+            out.print("alert(‎'"+mid+"님 환영합니다.');");
+            out.print("location.href='"+request.getContextPath()+"/study/0428_database/memberMainOneupdate.jsp';");
+            out.print("</script>");
         }
         else {
             //회원인증 실패시 처리
-        	out.print("<script>");
-    			out.print("alert('로그인 실패하였습니다. 아이디와 비밀번호를 확인해 주세요.');");
-    			out.print("location.href='"+request.getContextPath()+"/study/0428_database/login.jsp'");
-    			out.print("</script>");
+            out.print("<script>");
+            out.print("alert(‎'로그인 실패.');");
+            out.print("location.href='"+request.getContextPath()+"/study/0428_database/loginOneupdate.jsp';");
+            out.print("</script>");
         }
     }
 }
