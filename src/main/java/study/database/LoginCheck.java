@@ -34,9 +34,5 @@ public class LoginCheck extends HttpServlet{
 			String viewPage ="/study/0428_database/memberSearch.jsp";
 			request.getRequestDispatcher(viewPage).forward(request, response);
 		}
-		
-				
-		
-		
 	}
 }
