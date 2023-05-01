@@ -35,7 +35,7 @@
 			   	<div class="dropdown-menu">
 			      <a class="dropdown-item" href="${pageContext.request.contextPath}/study/0428_database/Login.re">로그인 연습1(매핑)</a>
 			      <a class="dropdown-item" href="${pageContext.request.contextPath}/study/0428_database/login.jsp">로그인 연습2</a>
-			      <a class="dropdown-item" href="#">Link 3</a>
+			      <a class="dropdown-item" href="#">로그인 연습3</a>
 			      <a class="dropdown-item" href="${ctp}/mapping/Test1">url 매핑</a>
 			    </div>
 			  </div>  
