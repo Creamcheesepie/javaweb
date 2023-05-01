@@ -6,21 +6,30 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>title</title>
+	<title>내 정보 변경</title>
 	<jsp:include page="/include/bs4.jsp"/>
 	
   <script>
+  'use strict'
+  
+  function changeInfoTrim(){ 
+  let pwd = document.getElementById("pwd").value.trim();
+  let name = document.getElementById("name").value.trim();
+  let nickName = document.getElementById("nickName").value.trim();
+  
+  changeInfoform.submit();
+  }
   </script>
   <style>
   </style>
 </head>
 
 <body>
-<jsp:include page="/include/header.jsp"/>
+<jsp:include page="/include_study/study_header.jsp"/>
 
 <div class="container" style="margin-top:30px">
 	<div style="margin-top: 150px"></div>
-	<form name="signinform" method="post" action="${ctp}/hsMyInfoChange.hs">
+	<form name="changeInfoform" method="post" action="${ctp}/hsMyInfoChange.hs">
 	<div style="text-align: center"><h2>정보수정</h2></div>
 	<div class="row mt-3">
 		<div class="col-sm"></div>	
@@ -50,7 +59,7 @@
 		<div class="col-sm"></div>	
 		<div class="col-sm"></div>
 		<div class="col-sm">
-			<button type="button" class="btn btn-success" onclick="submit()">정보수정</button>
+			<button type="button" class="btn btn-success" onclick="changeInfoTrim()">정보수정</button>
 			<button type="button" class="btn btn-primary" onclick="location.href='${ctp}/hsMyInfo.hs'">돌아가기</button>
 		</div>
 		<div class="col-sm"></div>	

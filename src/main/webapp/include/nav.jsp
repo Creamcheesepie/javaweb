@@ -42,6 +42,17 @@
 	      </li>
 	      <li>
 			  <div class="dropdown">
+			  	<button type="button" class="btn text-light dropdown-toggle" data-toggle="dropdown">homeStudy</button>
+			   	<div class="dropdown-menu">
+			      <a class="dropdown-item" href="${pageContext.request.contextPath}/hsLogin.hs">로그인연습(집)</a>
+			      <a class="dropdown-item" href="${pageContext.request.contextPath}/hsLogout.hs">로그아웃(집)</a>
+			      <a class="dropdown-item" href="${pageContext.request.contextPath}/hsMyInfo.hs">내정보(집)</a>
+			      <a class="dropdown-item" href="${pageContext.request.contextPath}/hsGoSigninPage.hs">회원가입(집)</a>
+			    </div>
+			  </div>  
+	      </li>
+	      <li>
+			  <div class="dropdown">
 			  	<button type="button" class="btn text-light dropdown-toggle" data-toggle="dropdown">개인정보</button>
 			   	<div class="dropdown-menu">
 			      <a class="dropdown-item" href="#">회원정보수정</a>
