@@ -47,7 +47,7 @@
 		<div class="col-sm"></div>	
 		<div class="col-sm-1" style="text-align: right">아이디</div>
 		<div class="col-sm"><input type="text" name="mid" id="mid" class="form-control" autofocus></div>
-		<div class="col-sm"></div>	
+		<div class="col-sm text-left"><input type="checkbox" name="midSave" id="midSave" value="midSave" checked/>아이디저장</div>	
 	</div>
 	<div class="row mt-3">
 		<div class="col-sm"></div>	

@@ -24,8 +24,6 @@ public class LoginOk extends HttpServlet {
         
         LoginVO vo = dao.getLoginCheck(mid,pwd); //dao에서 로그인 처리
         
-        PrintWriter out = response.getWriter();
-        
         if(vo.getName() != null) {
             //회원인증 성공시 처리
             //회원 인증 후 처리 : 자주 사용하는 자료를 세션에 저장하기 (아이디, 이름);
@@ -74,17 +72,15 @@ public class LoginOk extends HttpServlet {
             session.setAttribute("sLastDate", vo.getLastDate());
             session.setAttribute("sTodayCount", vo.getTodayCount()+1);//DB에 값은 갱신했지만, 갱신하기 전에 값을 읽어오기 때문에 여기에서 +1을 해줬다.
             
-            out.print("<script>");
-      			out.print("alert('"+mid+"님 로그인 되었습니다.');");
-      			out.print("location.href='"+request.getContextPath()+"/study/0428_database/memberMain.jsp'");
-      			out.print("</script>");
+            request.setAttribute("msg", mid + "님 로그인 되었습니다.");
+            request.setAttribute("url", request.getContextPath()+"/MemberMain.re");
+            
         }
         else {
             //회원인증 실패시 처리
-        	out.print("<script>");
-    			out.print("alert('로그인 실패하였습니다. 아이디와 비밀번호를 확인해 주세요.');");
-    			out.print("location.href='"+request.getContextPath()+"/study/0428_database/login.jsp'");
-    			out.print("</script>");
+        	request.setAttribute("msg", "로그인 실패하였습니다. 아이디나 비밀번호를 확인해주세요.");
+          request.setAttribute("url", request.getContextPath()+"/Login.re");
+        	
         }
     }
 }
