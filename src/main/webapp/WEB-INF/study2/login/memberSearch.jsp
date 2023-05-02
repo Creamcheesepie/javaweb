@@ -49,10 +49,10 @@
 		</table>
 		<br/>
 		<p>
-			<a href="${ctp}/MemberMain.re" class="btn btn-success mr-3">돌아가기</a>
+			<a href="${ctp}/study/0428_database/memberMain.jsp" class="btn btn-success mr-3">돌아가기</a>
 			<c:if test="${vo.mid == sMid }">
-			<a href="${ctp}/Update.re" class="btn btn-success mr-3">정보수정</a>
-			<a href="${ctp}/MemberDelete.re" class="btn btn-success mr-3">회원탈퇴</a>
+			<a href="${ctp}/database/Update" class="btn btn-success mr-3">정보수정</a>
+			<a href="javascript:deleteCheck()" class="btn btn-success mr-3">회원탈퇴</a>
 			</c:if>
 	</div>
 <p><br/></p>

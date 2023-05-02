@@ -31,7 +31,7 @@ public class LoginJoinOK implements LoginInterface {
 		if(vo2.getMid()!=null) {
 			//아이디가 중복되었다.
 			msg = "아이디가 중복되었습니다.";
-			url="/Join.re";
+			url=request.getContextPath()+"/Join.re";
 		}
 		else {
 			//아이디가 중복되어있지 않다.

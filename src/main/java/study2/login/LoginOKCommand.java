@@ -17,7 +17,7 @@ public class LoginOKCommand implements LoginInterface {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 String mid = request.getParameter("mid")==null? "" : request.getParameter("mid"); 
      String pwd = request.getParameter("pwd")==null? "" : request.getParameter("pwd");
-     
+     String msg="", url="";
      LoginDAO dao = new LoginDAO();
      
      LoginVO vo = dao.getLoginCheck(mid,pwd); //dao에서 로그인 처리
@@ -72,18 +72,17 @@ public class LoginOKCommand implements LoginInterface {
          session.setAttribute("sLastDate", vo.getLastDate());
          session.setAttribute("sTodayCount", vo.getTodayCount()+1);//DB에 값은 갱신했지만, 갱신하기 전에 값을 읽어오기 때문에 여기에서 +1을 해줬다.
          
-         out.print("<script>");
-   			out.print("alert('"+mid+"님 로그인 되었습니다.');");
-   			out.print("location.href='"+request.getContextPath()+"/study/0428_database/memberMain.jsp'");
-   			out.print("</script>");
+         msg = "로그인 되었습니다.";
+   			 url="/MemberMain.re";
      }
      else {
          //회원인증 실패시 처리
-     	out.print("<script>");
- 			out.print("alert('로그인 실패하였습니다. 아이디와 비밀번호를 확인해 주세요.');");
- 			out.print("location.href='"+request.getContextPath()+"/study/0428_database/login.jsp'");
- 			out.print("</script>");
+    	msg = "로그인실패 하였습니다. 아이디와 비밀번호를 다시 확인해주세요.";
+			url="/Login.re";
      }
+     request.setAttribute("msg", msg);
+ 			request.setAttribute("url", request.getContextPath()+url);
+ 		
 	}
 
 }
