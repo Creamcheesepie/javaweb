@@ -23,9 +23,16 @@ insert into memberStudy values(default,"admin","1234","관리자","administrator
 select * from memberStudy;
 
 create table board(
-	idx int not null auto_inclment primary key,
+	idx int not null auto_increment primary key,
 	Mid varchar(20) not null,
 	deleteKey int(4) not null,
 	title varchar(30) not null,
-	article varchar(30000) not null
-)
+	article text not null,
+	createDate datetime default now()
+);
+
+insert into board values(default, "admin","123","게시판 기능 테스트","데이터 베이스 테스트용입니다.",default );
+
+desc board;
+
+select * from board;

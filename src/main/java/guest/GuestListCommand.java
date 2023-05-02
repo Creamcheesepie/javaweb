@@ -52,7 +52,7 @@ public class GuestListCommand implements GuestInterface {
 		request.setAttribute("vos", vos);
 		request.setAttribute("pag", pag);
 		request.setAttribute("totalPage", totalPage);
-		request.setAttribute("curScrStartNo", curScrStartNo);
+		request.setAttribute("curScrStartNo", curScrStartNo); 
 		//? 번호가 달라질 떄 씀(삭제했을때)
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("blockSize", blockSize);

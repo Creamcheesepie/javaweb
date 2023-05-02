@@ -48,6 +48,7 @@
 			      <a class="dropdown-item" href="${pageContext.request.contextPath}/hsLogout.hs">로그아웃(집)</a>
 			      <a class="dropdown-item" href="${pageContext.request.contextPath}/hsMyInfo.hs">내정보(집)</a>
 			      <a class="dropdown-item" href="${pageContext.request.contextPath}/hsGoSigninPage.hs">회원가입(집)</a>
+			      <a class="dropdown-item" href="${pageContext.request.contextPath}/hsBoardList.pp">게시판(집)</a>
 			    </div>
 			  </div>  
 	      </li>
