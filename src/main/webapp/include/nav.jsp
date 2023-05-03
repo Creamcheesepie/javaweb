@@ -25,6 +25,8 @@
 			      <a class="dropdown-item" href="${ctp}/mapping/Test1">url 매핑(디렉토리패턴)</a>
 			      <a class="dropdown-item" href="${ctp}/mapping/Test5.do">url 매핑(확장자패턴1)</a>
 			      <a class="dropdown-item" href="${ctp}/mapping/Test5.mi">url 매핑(확장자패턴2)</a>
+			      <a class="dropdown-item" href="${ctp}/mapping/JoinSecure.re">회원가입(암호화)</a>
+			      <a class="dropdown-item" href="${ctp}/mapping/LoginSecure.re">로그인(암호화)</a>
 			      <a class="dropdown-item" href="${pageContext.request.contextPath}/study/0428_database/Login.re">로그인 연습1(매핑)</a>
 			      <a class="dropdown-item" href="#">Link 3</a>
 			    </div>

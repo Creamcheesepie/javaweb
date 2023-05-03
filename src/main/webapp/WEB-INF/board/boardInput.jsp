@@ -36,7 +36,7 @@
 			<table class="table table-bordered">
 				<tr>
 				<th>글쓴이</th>
-				<td>${sNickName}</td>
+				<td>${sMid}</td>
 				</tr>
 				<tr>
 				<th>글 제목</th>

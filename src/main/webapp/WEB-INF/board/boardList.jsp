@@ -47,7 +47,7 @@
 				<tr>
 					<td>${vo.idx}</td>
 					<td>${vo.title}</td>
-					<td>${vo.nickName}</td>
+					<td>${vo.mid}</td>
 					<td>${vo.wDate}</td>
 					<td>${vo.readNum}</td>
 					<td>${vo.good}</td>

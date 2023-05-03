@@ -34,7 +34,7 @@ public class BoardListCommand implements BoardInterface {
 		int lastBlock = (totalPage-1)/blockSize;
 		
 		
-		ArrayList<BoardVO> vos = dao.getBoardList();
+		ArrayList<BoardVO> vos = dao.getBoardList(startIndexNo, pageSize);
 		
 		
 		request.setAttribute("vos", vos);

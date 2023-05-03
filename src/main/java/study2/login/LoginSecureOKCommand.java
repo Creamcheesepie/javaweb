@@ -11,18 +11,26 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-public class LoginOKCommand implements LoginInterface {
+public class LoginSecureOKCommand implements LoginInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mid = request.getParameter("mid")==null? "" : request.getParameter("mid"); 
+	 String mid = request.getParameter("mid")==null? "" : request.getParameter("mid"); 
      String pwd = request.getParameter("pwd")==null? "" : request.getParameter("pwd");
      String msg="", url="";
      LoginDAO dao = new LoginDAO();
      
+     int key = 0x1782ABCD;
+	 int encPwd;
+	 encPwd = Integer.parseInt(pwd)^key;
+	 pwd = String.valueOf(encPwd);
+     
      LoginVO vo = dao.getLoginCheck(mid,pwd); //dao에서 로그인 처리
      
      PrintWriter out = response.getWriter();
+     
+     
+     
      
      if(vo.getName() != null) {
          //회원인증 성공시 처리
@@ -42,6 +50,7 @@ public class LoginOKCommand implements LoginInterface {
          lastDate = lastDate.substring(0,10);
          System.out.println(lastDate);
          System.out.println(nowDate);
+         
          
          HttpSession session = request.getSession();
          
@@ -78,7 +87,7 @@ public class LoginOKCommand implements LoginInterface {
      else {
          //회원인증 실패시 처리
     	msg = "로그인실패 하였습니다. 아이디와 비밀번호를 다시 확인해주세요.";
-			url="/Login.re";
+			url="/LoginSecure.re";
      }
      request.setAttribute("msg", msg);
  			request.setAttribute("url", request.getContextPath()+url);

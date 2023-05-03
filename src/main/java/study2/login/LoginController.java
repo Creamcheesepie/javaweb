@@ -26,8 +26,24 @@ public class LoginController extends HttpServlet{
 		else if(com.equals("/Join")) {
 			viewPage +="/join.jsp";
 		}
+		else if(com.equals("/LoginSecure")){
+			viewPage +="/loginSecure.jsp";
+		}
+		else if(com.equals("/JoinSecure")) {
+			viewPage +="/joinSecure.jsp";
+		}
 		else if(com.equals("/joinOk")) {
 			command = new LoginJoinOK();
+			command.execute(request, response);
+			viewPage ="/include/message.jsp";
+		}
+		else if(com.equals("/joinSecureOk")) {
+			command = new LoginJoinSecureOK();
+			command.execute(request, response);
+			viewPage ="/include/message.jsp";
+		}
+		else if(com.equals("/LoginSecureOk")) {
+			command = new LoginSecureOKCommand();
 			command.execute(request, response);
 			viewPage ="/include/message.jsp";
 		}
