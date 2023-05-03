@@ -29,7 +29,12 @@ public class HsBoardController extends HttpServlet {
 		else if(com.equals("/hsBoardWriteSubmit")) {
 			command = new BoardWriteSubmitCommand();
 			command.execute(request, response);
-			viewPage+="/hsBoardSubmitClear.jsp";
+			viewPage="/include/message.jsp";
+		}
+		else if(com.equals("/hsBoardArticle")) {
+			command = new BoardReadCommand();
+			command.execute(request, response);
+			viewPage +="/hsBoardRead.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

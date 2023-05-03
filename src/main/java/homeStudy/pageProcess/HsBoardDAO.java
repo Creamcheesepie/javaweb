@@ -85,16 +85,17 @@ public class HsBoardDAO {
 		return trc;
 		
 	}
-	
+	//게시글 작성
 	public int setBoardInputOk(HsBoardVO vo) {
 		int res=0;
 		try {
-			sql="insert into board values (default,?,?,?,?,default)";
+			sql="insert into board values (default,?,?,?,?,default,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getMid());
 			pstmt.setInt(2, vo.getDeletekey());
 			pstmt.setString(3, vo.getTitle());
 			pstmt.setString(4, vo.getArticle());
+			pstmt.setString(5, vo.getHostIp());
 			pstmt.executeUpdate();
 			res=1;
 		} catch (SQLException e) {
@@ -106,6 +107,27 @@ public class HsBoardDAO {
 		
 		return res;
 	}
-	
-	
+	//게시글 읽어오기
+
+	public HsBoardVO getBoardArticle(int idx) {
+		vo = new HsBoardVO();
+		try {
+			sql = "select * from board where idx=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo = new HsBoardVO();
+				vo.setArticle(rs.getString("article"));
+				vo.setTitle(rs.getString("title"));
+				vo.setMid(rs.getString("mid"));
+			}
+				
+		} catch (SQLException e) {
+			System.out.println("sql문 오류 " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vo;
+	}
 }	

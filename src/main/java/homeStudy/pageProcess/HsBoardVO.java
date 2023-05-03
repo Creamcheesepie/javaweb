@@ -7,6 +7,7 @@ public class HsBoardVO {
 	private String title;
 	private String article;
 	private String createDate;
+	private String hostIp;
 	public int getIdx() {
 		return idx;
 	}
@@ -43,15 +44,19 @@ public class HsBoardVO {
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
-	
+	public String getHostIp() {
+		return hostIp;
+	}
+	public void setHostIp(String hostIp) {
+		this.hostIp = hostIp;
+	}
 	
 	@Override
 	public String toString() {
-		return "BoardVO [idx=" + idx + ", mid=" + mid + ", deletekey=" + deletekey + ", title=" + title + ", article="
-				+ article + ", createDate=" + createDate + ", getIdx()=" + getIdx() + ", getMid()=" + getMid()
-				+ ", getDeletekey()=" + getDeletekey() + ", getTitle()=" + getTitle() + ", getArticle()=" + getArticle()
-				+ ", getCreateDate()=" + getCreateDate() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+		return "HsBoardVO [idx=" + idx + ", mid=" + mid + ", deletekey=" + deletekey + ", title=" + title + ", article="
+				+ article + ", createDate=" + createDate + ", hostIp=" + hostIp + "]";
 	}
+	
+	
 	
 }

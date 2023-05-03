@@ -22,7 +22,7 @@
 	<form name="BoardWrite" method="post" action="${ctp}/hsBoardWriteSubmit.pp">
 		<div class="row" >
 			<div class="col-sm-2">작성자 아이디</div>
-			<div class="col-sm-2"><input type="text" name="mid" id="mid" value="${mid}" readonly/></div>
+			<div class="col-sm-2"><input type="text" name="mid" id="mid" value="${sLoginMid}" readonly/></div>
 			<div class="col-sm-8"></div>
 		</div>
 		<div class="row" >
@@ -40,6 +40,7 @@
 		<button type="submit" class="btn btn-primary">게시글 등록</button>
 	    <button type="reset" class="btn btn-warning">다시 쓰기</button>
 	    <button type="button" onclick="location.href='${ctp}/hsBoardList'" class="btn btn-danger">돌아가기</button>
+	    <div><input type="hidden" name="hostIp" value="<%=request.getRemoteAddr()%>"/></div>
 	</form>
 	</div>
 <p><br/></p>

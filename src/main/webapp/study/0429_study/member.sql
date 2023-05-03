@@ -28,10 +28,11 @@ create table board(
 	deleteKey int(4) not null,
 	title varchar(30) not null,
 	article text not null,
-	createDate datetime default now()
+	createDate datetime default now(),
+	hostIP varchar(30) not null
 );
 
-insert into board values(default, "admin","123","게시판 기능 테스트","데이터 베이스 테스트용입니다.",default );
+insert into board values(default, "admin","123","게시판 기능 테스트","데이터 베이스 테스트용입니다.",default,"192.168.50.88" );
 
 desc board;
 

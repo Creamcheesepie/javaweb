@@ -34,7 +34,7 @@
 	<c:forEach var="vo" items="${vos}" varStatus="st">
 		<div class="row text-center">
 			<div class="col-sm-2">${vo.idx}</div>
-			<div class="col-sm-8 text-center"><a href="${ctp}/hsBoardArticle.pp?title=${vo.title}">${vo.title}</a></div>
+			<div class="col-sm-8 text-center"><a href="${ctp}/hsBoardArticle.pp?idx=${vo.idx}">${vo.title}</a></div>
 			<div class="col-sm-2">${vo.mid}</div>
 			<hr/>
 		</div>
