@@ -13,7 +13,7 @@
 	        <a class="nav-link" href="${ctp}/GuestList.gu">guest</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">board</a>
+	        <a class="nav-link" href="${ctp}/BoardList.bo">board</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="#">PDS</a>
@@ -37,6 +37,7 @@
 			      <a class="dropdown-item" href="${pageContext.request.contextPath}/study/0428_database/login.jsp">로그인 연습2</a>
 			      <a class="dropdown-item" href="#">로그인 연습3</a>
 			      <a class="dropdown-item" href="${ctp}/mapping/Test1">url 매핑</a>
+			      <a class="dropdown-item" href="Password.st">암호화연습</a>
 			    </div>
 			  </div>  
 	      </li>
