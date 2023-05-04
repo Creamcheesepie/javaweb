@@ -1,4 +1,4 @@
-package board;
+package member;
 
 import java.io.IOException;
 
@@ -10,34 +10,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet("*.bo")
-public class BoardController extends HttpServlet {
+@WebServlet("*.mem")
+public class MemberController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BoardInterface command = null;
-		String viewPage="/WEB-INF/board;";
+		MemberInterface command = null;
+		String viewPage="/WEB-INF/member;";
 		
 		String uri = request.getRequestURI();
 		String com = uri.substring(uri.lastIndexOf("/"), uri.lastIndexOf("."));
 		
-		if(com.equals("/BoardList")) {
-			command = new BoardListCommand();
+		if(com.equals("/MemberJoin")) {
+			viewPage +="/memberJoin.jsp";
+		}
+		else if(com.equals("/MemberLogin")) {
+			viewPage +="/memberLogin.jsp";
+		}
+		else if(com.equals("/MemberLoginOk")) {
+			command = new MemberLoginOkCommand();
 			command.execute(request, response);
-			viewPage +="/boardList.jsp";
+			viewPage ="/includ/message.jsp";
 		}
-		else if(com.equals("/BoardInput")) {
-			viewPage +="/boardInput.jsp";
-		}
-		else if(com.equals("/BoardInputOk")) {
-			command = new BoardInputOkCommand();
+		else if(com.equals("/MemberIdCheck")) {
+			command = new MemberIdCheckCommand();
 			command.execute(request, response);
-			viewPage ="/include/message.jsp";
+			viewPage ="/includ/message.jsp";
 		}
-		else if(com.equals("/BoardOutput")) {
-			command = new BoardOutputCommand();
-			command.execute(request, response);
-			viewPage +="/boardOutput.jsp";
+		
+		else if(com.equals("/MemberList")) {
+		command = new MemberListCommand();
+		command.execute(request, response);
+		viewPage +="/memberList.jsp";
 		}
+		
 		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

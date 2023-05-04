@@ -23,7 +23,13 @@ public class BoardDAO {
 		ArrayList<BoardVO> vos = new ArrayList<>();
 		try {
 			
-			sql = "select * from board1 order by idx desc limit ?,?";
+//			sql = "select * from board1 order by idx desc limit ?,?";
+//			sql = "select *,timestampdiff(hour, wDate,now()) as hour_diff "
+//					+ "from board1 order by idx desc limit ?,?";
+			sql = "select *,datediff(now(),wDate) as date_diff,timestampdiff(hour, wDate,now()) as hour_diff "
+					+ "from board1 order by idx desc limit ?,?";
+
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startIndexNo);
 			pstmt.setInt(2, pageSize);
@@ -43,6 +49,8 @@ public class BoardDAO {
 				vo.setOpenSw(rs.getString("openSw"));
 				vo.setwDate(rs.getString("wDate"));
 				vo.setGood(rs.getInt("good"));
+				vo.setHour_diff(rs.getInt("hour_diff"));
+				vo.setDate_diff(rs.getInt("date_diff"));
 				vos.add(vo);
 			}
 			

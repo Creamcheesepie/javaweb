@@ -13,6 +13,8 @@ public class GuestListCommand implements GuestInterface {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		GuestDAO dao = new GuestDAO();
 		
+		
+		
 		//일반 페이지 처리
 		//1.현재 페이지의 번호를 구한다.
 		int pag = request.getParameter("pag")==null? 1 : Integer.parseInt(request.getParameter("pag"));

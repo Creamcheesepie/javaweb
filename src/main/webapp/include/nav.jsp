@@ -65,6 +65,13 @@
 			    </div>
 			  </div>  
 	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="${ctp}/MemberLogin.mem">로그인</a>
+	      </li><li class="nav-item">
+	        <a class="nav-link" href="${ctp}/MemberJoin.mem">회원가입</a>
+	      </li><li class="nav-item">
+	        <a class="nav-link" href="${ctp}/Logout.mem">로그아웃</a>
+	      </li>
 	    </ul>
 	  </div>
 	</nav>

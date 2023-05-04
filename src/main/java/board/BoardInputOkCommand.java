@@ -16,19 +16,22 @@ public class BoardInputOkCommand implements BoardInterface {
 		String homePage = request.getParameter("homePage")==null?"":request.getParameter("homePage");
 		String content = request.getParameter("content")==null?"":request.getParameter("content");
 		String hostIp = request.getParameter("hostIp")==null?"":request.getParameter("hostIp");
+		String openSw = request.getParameter("openSw")==null?"ok":request.getParameter("openSw");
 		
 		HttpSession session = request.getSession();
 		String mid=session.getAttribute("sMid")==null?"":(String)session.getAttribute("sMid");
 		String nickName=session.getAttribute("sNickName")==null?"":(String)session.getAttribute("sNickName");
 		
 		BoardVO vo = new BoardVO();
-		vo.setNickName(nickName);
+//		vo.setNickName(nickName); 현재 DB에 닉네임이 없으니 mid로 대체
+		vo.setNickName(mid);
 		vo.setEmail(email);
 		vo.setHostIp(hostIp);
 		vo.setHomePage(homePage);
 		vo.setMid(mid);
 		vo.setTitle(title);
 		vo.setContent(content);
+		vo.setOpenSw(openSw);
 		
 		BoardDAO dao = new BoardDAO();
 		int res = dao.setBoardInput(vo);

@@ -16,8 +16,8 @@ public class BoardListCommand implements BoardInterface {
 		//로그인/아웃 sha 써보기
 		//페이징 처리
 		int nowPage = request.getParameter("nowPage") ==null?1: Integer.parseInt(request.getParameter("nowPage"));
-		
-		int pageSize =  request.getParameter("pageSize")==null? 5 : Integer.parseInt(request.getParameter("pageSize"));
+		System.out.println(request.getParameter("pageSize"));
+		int pageSize =  request.getParameter("pageSize")==null?5: Integer.parseInt(request.getParameter("pageSize"));
 		
 		int totalRecordCount = dao.getTotRecCnt();
 		

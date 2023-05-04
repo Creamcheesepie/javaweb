@@ -42,19 +42,19 @@
 				</tr>
 				<tr>
 				<th>글 제목</th>
-				<td><input type="text" name="title" id="title" placeholder="글제목을 입력하세요." required class="form-control"></td>
+				<td><input type="text" name="title" id="title" value="${vo.title}" required class="form-control" readonly></td>
 				</tr>
 				<tr>
 				<th>이메일</th>
-				<td><input type="text" name="email" id="email" placeholder="이메일을 입력하세요." class="form-control"></td>
+				<td><input type="text" name="email" id="email"  value="${vo.email}"  class="form-control" readonly></td>
 				</tr>
 				<tr>
 				<th>홈페이지</th>
-				<td><input type="text" name="homePage" id="homePage" placeholder="홈페이지를 입력하세요." value="https://" class="form-control"></td>
+				<td><input type="text" name="homePage" id="homePage"  value="${vo.homePage}"  class="form-control" readonly></td>
 				</tr>
 				<tr>
 				<th>글 내용</th>
-				<td><textarea rows="8" name="content" id="content" placeholder="내용을 입력해주세요." class="form-control" required></textarea> </td>
+				<td><textarea rows="8" name="content" id="content" value="${vo.content}" class="form-control" readonly></textarea> </td>
 				</tr>
 				<tr>
 				<th>공개여부</th>
