@@ -14,18 +14,130 @@
 	'use strict'
 		
 	 function fCheck() {
-		//유효성 검사
+		//아이디 , 닉네임 중복체크 여부 검사
+		//let midOk ="${midOK}"
+		//let nickNameOk ="${nickNameOk}"
+		/* else if(!$$inRegEx.test($$in)){
+			alert("");
+			myform.$$in.focus();
+		} */
 		
-		myform.submit();
+		let mid = myform.mid.value.trim();
+		let pwd = myform.pwd.value.trim();
+		let nickName = myform.nickName.value.trim();
+		let name = myform.name.value.trim();
+		let email1 = myform.email1.value.trim();
+		let email2 = myform.email2.value.trim();
+		let email = email1+email2;
+		
+		let midOk = "false"
+		let pwdOk = "false"
+		let nickNameOk = "false"
+		let nameOk = "false"
+		let emailOk = "false"
+		
+				//유효성 검사
+		const midRegEx = /^[a-zA-Z0-9]{4,20}[^\W]/; //아이디 정규식
+		const pwdRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/g;
+		const nickNameRegEx = /^[a-zA-Z0-9가-힣]{2,19}[a-zA-Z0-9가-힣]*$/g;
+		const nameRegEx = /^[a-zA-Z가-힣]{1,19}[a-zA-Z가-힣]*$/g;
+		const emailRegEx = /[\w]+@[\w]+[.]{1}[\w]/g;
+		
+		if(mid==""){
+			alert("아이디를 입력하세요!");
+			myform.mid.focus();
+			return false;
+		}
+		else if(!midRegEx.test(mid)){
+			alert("아이디는 영문 대소문자에 숫자를 포함하여 4~12글자로 입력해주세요!");
+			myform.mid.focus();
+			return false;
+		}else{
+			midOk="true";
+		}
+		
+		if(pwd==""){
+			alert("비밀번호를 입력하세요!");
+			myform.pwd.focus();
+			return false;
+		}
+		else if(!pwdRegEx.test(pwd)){
+			alert("비밀번호는 영문 대소문자에 특수문자 1개 이상,8글자 이상으로 입력해주세요!");
+			myform.pwd.focus();
+			return false;
+		}else{
+			pwdOk="true";
+		}
+		
+		if(nickName==""){
+			alert("닉네임을 입력하세요!");
+			myform.nickName.focus();
+			return false;
+		}
+		else if(!nickNameRegEx.test(nickName)){
+			alert("닉네임은 한글, 영문, 숫자까지 입력할 수 있습니다.");
+			myform.nickName.focus();
+			return false;
+		}else{
+			nickNameOk="true";
+		}
+		
+		if(name==""){
+			alert("이름을 입력하세요!");
+			myform.name.focus();
+			return false;
+		}
+		else if(!nameRegEx.test(name)){
+			alert("이름은 한글, 영문까지 입력할 수 있습니다.");
+			myform.nickName.focus();
+			return false;
+		}else{
+			nameOk="true";			
+		}
+		
+		if(email1==""){
+			alert("이메일을 입력하세요!");
+			myform.email1.focus();
+			return false;
+		}
+		else if(!emailRegEx.test(email)){
+			alert("이메일을 형식에 맞게 입력해주세요.");
+			myform.nickName.focus();
+			return false;
+		}	else{
+			emailOk="true";
+		}
+		
+		if(midOk=="true" && pwdOk=="true" && nickNameOk=="true" && nameOk=="true" && emailOk=="true"){
+			myform.submit();
+			
+		}
+		
 	}
 	
 	function idCheck(){
 		let mid = myform.mid.value;
-		let url = "${ctp}/memberIdCheck.mem?mid="+mid;
+		let url = "${ctp}/MemberIdCheck.mem?mid="+mid;
 		
-		if(mid.trim() =""){
-			aler("아이디를 입력하세요!");
+		
+		if(mid.trim()==""){
+			alert("아이디를 입력하세요!");
 			myform.mid.focus();
+		}
+		else{
+			window.open(url,"nWin","width=580px,height=250px");
+		}
+		
+	}
+	
+	function nickCheck(){
+		let nickName = myform.nickName.value;
+		let url = "${ctp}/MemberNickNameCheck.mem?nickName="+nickName;
+		
+		
+		if(nickName.trim()==""){
+			alert("닉네임을 입력하세요!");
+			myform.nickName.focus();
 		}
 		else{
 			window.open(url,"nWin","width=580px,height=250px");
@@ -64,12 +176,12 @@
           <input type="text" class="form-control" placeholder="Email을 입력하세요." id="email1" name="email1" required />
           <div class="input-group-append">
             <select name="email2" class="custom-select">
-              <option value="naver.com" selected>naver.com</option>
-              <option value="hanmail.net">hanmail.net</option>
-              <option value="hotmail.com">hotmail.com</option>
-              <option value="gmail.com">gmail.com</option>
-              <option value="nate.com">nate.com</option>
-              <option value="yahoo.com">yahoo.com</option>
+              <option value="@naver.com" selected>naver.com</option>
+              <option value="@hanmail.net">hanmail.net</option>
+              <option value="@hotmail.com">hotmail.com</option>
+              <option value="@gmail.com">gmail.com</option>
+              <option value="@nate.com">nate.com</option>
+              <option value="@yahoo.com">yahoo.com</option>
             </select>
           </div>
         </div>

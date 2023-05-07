@@ -29,12 +29,22 @@ public class MemberController extends HttpServlet {
 		else if(com.equals("/MemberLoginOk")) {
 			command = new MemberLoginOkCommand();
 			command.execute(request, response);
-			viewPage ="/includ/message.jsp";
+			viewPage ="/include/message.jsp";
 		}
 		else if(com.equals("/MemberIdCheck")) {
 			command = new MemberIdCheckCommand();
 			command.execute(request, response);
-			viewPage ="/includ/message.jsp";
+			viewPage +="/memberIdCheck.jsp";
+		}
+		else if(com.equals("/MemberNickNameCheck")) {
+			command = new MemberNickNameCheckCommand();
+			command.execute(request, response);
+			viewPage +="/memberNickNameCheck.jsp";
+		}
+		else if(com.equals("/MemberJoinOk")) {
+			command = new MemberJoinOkCommand();
+			command.execute(request, response);
+			viewPage ="/include/message.jsp";
 		}
 		
 		else if(com.equals("/MemberList")) {
