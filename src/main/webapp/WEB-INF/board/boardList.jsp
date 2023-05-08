@@ -50,7 +50,7 @@
 						<td>${vo.idx}</td>
 						<td>
 							<c:if test="${vo.hour_diff<=24}"><img src="${ctp}/images/new.gif"/></c:if>
-							${vo.title}
+							<a href="${ctp}/BoardContent.bo?idx=${vo.idx}">${vo.title}</a>
 							<c:if test="${vo.hour_diff<=24}">&nbsp;<span class="badge badge-warning text-white">new!</span></c:if>
 						</td>
 						<td>${vo.nickName}</td>

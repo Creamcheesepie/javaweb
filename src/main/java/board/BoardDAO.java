@@ -103,6 +103,80 @@ public class BoardDAO {
 		
 		return totRecCnt;
 	}
+
+	public BoardVO getBoardContent(int idx) {
+		vo = new BoardVO();
+		try {
+			sql = "select * from board1 where idx=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			vo.setIdx(rs.getInt("idx"));
+			vo.setMid(rs.getString("mid"));
+			vo.setNickName(rs.getString("nickName"));
+			vo.setTitle(rs.getString("title"));
+			vo.setEmail(rs.getString("email"));
+			vo.setHomePage(rs.getString("homePage"));
+			vo.setContent(rs.getString("content"));
+			vo.setReadNum(rs.getInt("readNum"));
+			vo.setHostIp(rs.getString("hostIp"));
+			vo.setOpenSw(rs.getString("openSw"));
+			vo.setwDate(rs.getString("wDate"));
+			vo.setGood(rs.getInt("good"));
+			
+		} catch (Exception e) {
+			getConn.rsClose();
+		}
+		return vo;
+	}
+	//조회수 1 증가시키기
+	public void setReadnumUpdate(int idx) {
+		try {
+			sql = "update board1 set readNum = readNum+1 where idx=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+			
+		}  catch (Exception e) {
+			System.out.println("sql문 오류 : " +e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
+	//좋아요 1 증가시키기
+	public void setGoodUpdate(int idx ,String mIdx) {
+		try {
+			sql = "update board1 set good=good+1 ,goodMember=goodMember+? where idx=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.setString(2, mIdx);
+			pstmt.executeUpdate();
+			
+		}  catch (Exception e) {
+			System.out.println("sql문 오류 : " +e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
+	
+	public BoardVO getMIdxinfo(int idx) {
+		vo = new BoardVO();
+		try {
+			sql = "select goodMember from board1 where idx=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			vo.setGoodMember(rs.getString("goodMember"));
+			
+		}  catch (Exception e) {
+			System.out.println("sql문 오류 : " +e.getMessage());
+		}
+		return vo;
+	}
 	
 	
 }

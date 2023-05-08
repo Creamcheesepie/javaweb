@@ -55,12 +55,13 @@ public class MemberDAO {
 					
 					vo.setLastDate(rs.getString("lastDate"));
 					vo.setTodayCnt(rs.getInt("todayCnt"));
+					vo.setUid(rs.getString("salt"));
 					
 				}
 				
 				
 			} catch (SQLException e) {
-				System.out.println("sql우류 :" + e.getMessage());
+				System.out.println("sql오류 :" + e.getMessage());
 			} finally {
 				getConn.rsClose();
 			}
@@ -106,12 +107,13 @@ public class MemberDAO {
 					
 					vo.setLastDate(rs.getString("lastDate"));
 					vo.setTodayCnt(rs.getInt("todayCnt"));
+					vo.setUid(rs.getString("salt"));
 					
 				}
 				
 				
 			} catch (SQLException e) {
-				System.out.println("sql우류 :" + e.getMessage());
+				System.out.println("sql오류 :" + e.getMessage());
 			} finally {
 				getConn.rsClose();
 			}
@@ -127,7 +129,7 @@ public class MemberDAO {
 					+ "?,?,?,?,?,"
 					+ "?,?,?,?,?,"
 					+ "?,?,?,?,?,"
-					+ "default,default,default,default,default,default,default)";
+					+ "default,default,default,default,default,default,default,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getMid());
 			pstmt.setString(2, vo.getPwd());
@@ -144,6 +146,7 @@ public class MemberDAO {
 			pstmt.setString(13, vo.getPhoto());
 			pstmt.setString(14, vo.getContent());
 			pstmt.setString(15, vo.getUserInfoSw());
+			pstmt.setString(16, vo.getUid());
 			pstmt.executeUpdate();
 			res=1;
 		}catch (SQLException e) {
@@ -153,4 +156,37 @@ public class MemberDAO {
 		}
 		return res;
 	}
+	
+	//오늘 처음 방문시에 방문카운트를 0으로 초기화
+	public void setTodayCntUpdate(String mid) {
+	
+		try {
+			sql = "update member set todaCnt = 0 where mid = ?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.executeUpdate();
+		}catch (SQLException e) {
+			System.out.println("정보 입력 sql문 오류" + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}	
+	}
+	public void setMemberTotalUpndate(String mid, int nowTodayPoint) {
+		try {
+			sql = "update member set visitCnt=visitCnt+1,todayCnt=todayCnt+1,point=?,lastDate=now() where mid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nowTodayPoint);
+			pstmt.setString(2, mid);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("정보 입력 sql문 오류" + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}	
+		
+	}
+	
+	//방문포인투룰
+
 }

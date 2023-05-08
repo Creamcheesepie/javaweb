@@ -32,6 +32,14 @@ public class studyController extends HttpServlet {
 			command.execute(request, response);
 			viewPage+="/password/password2.jsp";
 		}
+		else if(com.equals("/Uuid")) {
+			viewPage+="/uuid.jsp";
+		}
+		else if(com.equals("/Uuidform")) {
+			command = new UuidCommand();
+			command.execute(request, response);
+			viewPage+="/uuid.jsp";
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

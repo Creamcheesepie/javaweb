@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,9 @@
 	<script src="${ctp}/js/postCodeFind.js"></script>
 	<script>
 	'use strict'
+	//아이디와 중복버튼을 클릭햇는지의 여부를 확인하기위한 변수(버튼 클릭 후에는 내용 수정을 하지 못하도록(버튼을 통해서만 가능?)
+	let idCheckSw = 0;
+	let nickCheckSw = 0;
 		
 	 function fCheck() {
 		//아이디 , 닉네임 중복체크 여부 검사
@@ -30,19 +34,28 @@
 		let email2 = myform.email2.value.trim();
 		let email = email1+email2;
 		
+		
 		let midOk = "false"
 		let pwdOk = "false"
 		let nickNameOk = "false"
 		let nameOk = "false"
 		let emailOk = "false"
+		let telOk = "false"
 		
-				//유효성 검사
+				//유효성 검사 + 전화번호, 
 		const midRegEx = /^[a-zA-Z0-9]{4,20}[^\W]/; //아이디 정규식
-		const pwdRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/g;
-		const nickNameRegEx = /^[a-zA-Z0-9가-힣]{2,19}[a-zA-Z0-9가-힣]*$/g;
-		const nameRegEx = /^[a-zA-Z가-힣]{1,19}[a-zA-Z가-힣]*$/g;
-		const emailRegEx = /[\w]+@[\w]+[.]{1}[\w]/g;
+		const pwdRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/g; //비밀번호 정규식
+		const nickNameRegEx = /^[a-zA-Z0-9가-힣]{2,19}[a-zA-Z0-9가-힣]*$/g; //닉네임 정규식
+		const nameRegEx = /^[a-zA-Z가-힣]{1,19}[a-zA-Z가-힣]*$/g; //이름 정규식
+		const emailRegEx = /[\w]+@[\w]+[.]{1}[\w]/g; //이메일 정규식
+		const telRegEx = /\d{2,3}-\d{3,4}-\d{4}$/g;
 		
+		let tel1 = myform.tel1.value.trim();
+		let tel2 = myform.tel2.value.trim();
+		let tel3 = myform.tel3.value.trim();
+		let tel =  tel1+"-"+tel2+"-"+tel3;
+		
+		//아이디 검사
 		if(mid==""){
 			alert("아이디를 입력하세요!");
 			myform.mid.focus();
@@ -56,6 +69,7 @@
 			midOk="true";
 		}
 		
+		//비밀먼호 검사
 		if(pwd==""){
 			alert("비밀번호를 입력하세요!");
 			myform.pwd.focus();
@@ -69,6 +83,7 @@
 			pwdOk="true";
 		}
 		
+		//닉네임 검사
 		if(nickName==""){
 			alert("닉네임을 입력하세요!");
 			myform.nickName.focus();
@@ -82,6 +97,7 @@
 			nickNameOk="true";
 		}
 		
+		//이름 검사
 		if(name==""){
 			alert("이름을 입력하세요!");
 			myform.name.focus();
@@ -95,6 +111,7 @@
 			nameOk="true";			
 		}
 		
+		//이메일 검사
 		if(email1==""){
 			alert("이메일을 입력하세요!");
 			myform.email1.focus();
@@ -102,15 +119,57 @@
 		}
 		else if(!emailRegEx.test(email)){
 			alert("이메일을 형식에 맞게 입력해주세요.");
-			myform.nickName.focus();
+			myform.birthday.focus();
 			return false;
 		}	else{
 			emailOk="true";
 		}
 		
-		if(midOk=="true" && pwdOk=="true" && nickNameOk=="true" && nameOk=="true" && emailOk=="true"){
+		if(tel2 !="" && tel3 != ""){
+			if(!telRegEx.test(tel)){
+				alert("전화번호 형식을 확인세요.");
+				myform.tel.focus();
+				return false;
+			}
+			else{
+				telOk="true";
+			}
+		}
+		
+		
+		//주소 묶어주기.
+		let postcode = myform.postcode.value + " ";
+		let roadAddress = myform.roadAddress.value + " ";
+		let detailAddress = myform.detailAddress.value + " ";
+		let extraAddress = myform.extraAddress.value;
+		myform.address.value  = postcode +"/"+ roadAddress +"/"+ detailAddress+"/"+ extraAddress +"/";
+		
+		//
+		
+		/*
+			if(sMidOk == null || sMidOk == "no"){
+			alert("아이디 중복체크를 해주세요!");
+			return false;
+		}
+		
+		if(sNickNameOk == null || sNickNameOk == "no"){
+			alert("닉네임 중복체크를 해주세요!");
+			return false;
+		} 
+		*/
+		
+		if(idCheckSw == 0){
+			alert("아이디 중복체크 버튼을 눌러주세요")
+			document.getElementById("midBtn").focus();
+		}
+		else if(nickCheckSw == 0){
+			alert("아이디 중복체크 버튼을 눌러주세요")
+			document.getElementById("nickNameBtn").focus();
+		}
+		else if(midOk=="true" && pwdOk=="true" && nickNameOk=="true" && nameOk=="true" && emailOk=="true" ){
+			myform.tel.value = tel;
+			myform.email.value=email;
 			myform.submit();
-			
 		}
 		
 	}
@@ -125,6 +184,8 @@
 			myform.mid.focus();
 		}
 		else{
+			idCheckSw = 1 ;
+			myform.mid.readOnly="true";
 			window.open(url,"nWin","width=580px,height=250px");
 		}
 		
@@ -140,6 +201,8 @@
 			myform.nickName.focus();
 		}
 		else{
+			nickCheckSw = 1;
+			myform.nickName.readOnly="true";
 			window.open(url,"nWin","width=580px,height=250px");
 		}
 	}
@@ -155,7 +218,7 @@
     <h2>회 원 가 입</h2>
     <br/>
     <div class="form-group">
-      <label for="mid">아이디 : &nbsp; &nbsp;<input type="button" value="아이디 중복체크" class="btn btn-secondary btn-sm" onclick="idCheck()"/></label>
+      <label for="mid">아이디 : &nbsp; &nbsp;<input type="button" value="아이디 중복체크" name="midBtn" id="midBtn" class="btn btn-secondary btn-sm" onclick="idCheck()"/></label>
       <input type="text" class="form-control" name="mid" id="mid" placeholder="아이디를 입력하세요." required autofocus/>
     </div>
     <div class="form-group">
@@ -163,7 +226,7 @@
       <input type="password" class="form-control" id="pwd" placeholder="비밀번호를 입력하세요." name="pwd" required />
     </div>
     <div class="form-group">
-      <label for="nickName">닉네임 : &nbsp; &nbsp;<input type="button" value="닉네임 중복체크" class="btn btn-secondary btn-sm" onclick="nickCheck()"/></label>
+      <label for="nickName">닉네임 : &nbsp; &nbsp;<input type="button" value="닉네임 중복체크" name="nickNameBtn" id="nickNameBtn" class="btn btn-secondary btn-sm" onclick="nickCheck()"/></label>
       <input type="text" class="form-control" id="nickName" placeholder="별명을 입력하세요." name="nickName" required />
     </div>
     <div class="form-group">
@@ -201,7 +264,7 @@
     </div>
     <div class="form-group">
       <label for="birthday">생일</label>
-      <input type="date" name="birthday" class="form-control"/>
+      <input type="date" name="birthday" class="form-control" value="<%=java.time.LocalDate.now()%>"/>
     </div>
     <div class="form-group">
       <div class="input-group mb-3">
@@ -249,6 +312,8 @@
     <div class="form-group">
       <label for="name">직업</label>
       <select class="form-control" id="job" name="job">
+        <!-- <option value="">직업선택</option> -->
+        <option selected>기타</option>
         <option>학생</option>
         <option>회사원</option>
         <option>공무원</option>
@@ -311,12 +376,12 @@
       <div class="form-check-inline">
         <span class="input-group-text">정보공개</span>  &nbsp; &nbsp;
         <label class="form-check-label">
-          <input type="radio" class="form-check-input" name="userInfor" value="공개" checked/>공개
+          <input type="radio" class="form-check-input" name="userInfoSw" value="공개" checked/>공개
         </label>
       </div>
       <div class="form-check-inline">
         <label class="form-check-label">
-          <input type="radio" class="form-check-input" name="userInfor" value="비공개"/>비공개
+          <input type="radio" class="form-check-input" name="userInfoSw" value="비공개"/>비공개
         </label>
       </div>
     </div>
@@ -327,6 +392,8 @@
     <button type="button" class="btn btn-secondary" onclick="fCheck()">회원가입</button> &nbsp;
     <button type="reset" class="btn btn-secondary">다시작성</button> &nbsp;
     <button type="button" class="btn btn-secondary" onclick="">돌아가기</button>
+    <input type=hidden name="tel" id="tel"/>
+    <input type=hidden name="email" id="email"/>
   </form>
 	</div>
 <p><br/></p>

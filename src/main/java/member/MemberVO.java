@@ -21,9 +21,17 @@ public class MemberVO {
 	private int point;
 	private int level;
 	private String visitCnt;
-	private String singInDate;
+	private String signInDate;
 	private String lastDate;
 	private int todayCnt;
+	private String uid;
+	
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 	public int getIdx() {
 		return idx;
 	}
@@ -145,10 +153,10 @@ public class MemberVO {
 		this.visitCnt = visitCnt;
 	}
 	public String getSingInDate() {
-		return singInDate;
+		return signInDate;
 	}
-	public void setSingInDate(String singInDate) {
-		this.singInDate = singInDate;
+	public void setSingInDate(String signInDate) {
+		this.signInDate = signInDate;
 	}
 	public String getLastDate() {
 		return lastDate;
@@ -162,16 +170,14 @@ public class MemberVO {
 	public void setTodayCnt(int todayCnt) {
 		this.todayCnt = todayCnt;
 	}
-	
 	@Override
 	public String toString() {
 		return "MemberVO [idx=" + idx + ", mid=" + mid + ", pwd=" + pwd + ", nickName=" + nickName + ", name=" + name
 				+ ", gender=" + gender + ", birthday=" + birthday + ", tell=" + tell + ", address=" + address + ", email="
 				+ email + ", homePage=" + homePage + ", job=" + job + ", hobby=" + hobby + ", photo=" + photo + ", content="
 				+ content + ", userInfoSw=" + userInfoSw + ", userDel=" + userDel + ", point=" + point + ", level=" + level
-				+ ", visitCnt=" + visitCnt + ", singInDate=" + singInDate + ", lastDate=" + lastDate + ", todayCnt=" + todayCnt
-				+ "]";
+				+ ", visitCnt=" + visitCnt + ", signInDate=" + signInDate + ", lastDate=" + lastDate + ", todayCnt=" + todayCnt
+				+ ", uid=" + uid + "]";
 	}
-	 
 	
 }

@@ -26,7 +26,6 @@
 			else{
 				recheckform.submit();
 			}
-			
 		}
 		
 	</script>
@@ -42,7 +41,7 @@
 			</c:if>
 			<c:if test="${res ==0}">
 				<h4>이 아이디는 이미 사용중인 닉네임입니다.</h4>
-				<p><form name="recheckform" method="post" action="${ctp}/MemberNickNameCheck.mem"><input type="text" name="nickName" id="nickName" required placeholder="아이디를 입력해 주세요"></form></p>
+				<p><form name="recheckform" method="post" action="${ctp}/MemberNickNameCheck.mem"><input type="text" name="nickName" id="nickName" required placeholder="닉네임을 입력해 주세요"></form></p>
 				<p><input type="button" value="다시 확인" onclick="reInputCheck()"/></p>
 			</c:if>
 	</div>

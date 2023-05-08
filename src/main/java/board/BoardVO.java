@@ -13,6 +13,7 @@ public class BoardVO {
 	private String openSw;
 	private String wDate;
 	private int good;
+	private String goodMember;
 	
 	private int hour_diff;
 	private int date_diff;
@@ -137,6 +138,14 @@ public class BoardVO {
 				+ ", homePage=" + homePage + ", content=" + content + ", readNum=" + readNum + ", hostIp=" + hostIp
 				+ ", openSw=" + openSw + ", wDate=" + wDate + ", good=" + good + ", hour_diff=" + hour_diff + ", date_diff="
 				+ date_diff + "]";
+	}
+
+	public String getGoodMember() {
+		return goodMember;
+	}
+
+	public void setGoodMember(String goodMember) {
+		this.goodMember = goodMember;
 	}
 
 	
