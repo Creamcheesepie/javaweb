@@ -186,6 +186,70 @@ public class MemberDAO {
 		}	
 		
 	}
+	public MemberVO getMembeMidfind(String email) {
+		vo = new MemberVO();
+		try {
+			sql = "select * from member where email=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			vo.setMid(rs.getString("mid"));
+			
+		} catch (SQLException e) {
+			System.out.println("sql오류 :" + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+
+		return vo;
+	}
+	
+	
+	public MemberVO getMemberMidEmailCheck(String mid, String email) {
+		vo = new MemberVO();
+		try {
+			sql = "select * from member where mid=? and email=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.setString(2, email);
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			vo.setIdx(rs.getInt("idx"));
+			vo.setMid(rs.getString("mid"));
+			vo.setEmail(rs.getString("email"));
+			
+		} catch (SQLException e) {
+			System.out.println("sql오류 :" + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+
+		return vo;
+		
+	}
+	
+	public int MemberPwdReset(MemberVO vo) {
+		int res = 0;
+		try {
+			sql = "update member set pwd=? , salt=? where idx=? and mid=? and email=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getPwd());
+			pstmt.setString(2, vo.getUid());
+			pstmt.setInt(3, vo.getIdx());
+			pstmt.setString(4, vo.getMid());
+			pstmt.setString(5, vo.getEmail());
+			pstmt.executeUpdate();
+			res=1;
+		} catch (SQLException e) {
+			System.out.println("정보 입력 sql문 오류" + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
 	
 	//방문포인투룰
 
