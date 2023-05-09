@@ -138,7 +138,7 @@ public class UserDAO {
 	public UserVO getIdxMid(int idx, String mid) {
 		vo = new UserVO();
 		try {
-			sql = "select *from where idx=? and mid=?";
+			sql = "select *from user where idx=? and mid=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			pstmt.setString(2, mid);
@@ -153,7 +153,7 @@ public class UserDAO {
 			vo.setIdx(rs.getInt("idx"));
 			
 		} catch (SQLException e) {
-			System.out.println("sql문 오류" + e.getMessage());
+			System.out.println("getIdxMid sql문 오류" + e.getMessage());
 		}finally {
 			getConn.pstmtClose();
 		}
@@ -164,8 +164,8 @@ public class UserDAO {
 	public UserVO getMidUpdateSearch(String mid) {
 		vo = new UserVO();
 		try {
-			sql = "select *from where mid=?";
-			pstmt = conn.prepareStatement(sql);
+			sql = "select * from user where mid = ?";
+			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
 			rs = pstmt.executeQuery();
 			
@@ -177,7 +177,7 @@ public class UserDAO {
 			vo.setAddress(rs.getString("address"));
 			vo.setIdx(rs.getInt("idx"));
 		} catch (SQLException e) {
-			System.out.println("sql문 오류" + e.getMessage());
+			System.out.println("MidUp sql문 오류" + e.getMessage());
 		}finally {
 			getConn.pstmtClose();
 		}
@@ -185,9 +185,10 @@ public class UserDAO {
 		return vo;
 	}
 
-	public void setUserUpdate(int idx,String mid, String name, int age, String address) {
+	public int setUserUpdate(int idx,String mid, String name, int age, String address) {
+		int res=0;
 		try {
-			sql = "update user set mid = ?, name=?,age=?,address=? where idx=? ";
+			sql = "update user set mid=?, name=?, age=?, address=? where idx=?";
 			pstmt= conn.prepareStatement(sql);
 			pstmt.setString(1,mid);
 			pstmt.setString(2,name);
@@ -195,13 +196,13 @@ public class UserDAO {
 			pstmt.setString(4, address);
 			pstmt.setInt(5, idx);
 			pstmt.executeUpdate();
-			
+			res=1;
 		} catch (SQLException e) {
-			System.out.println("sql문 오류" + e.getMessage());
+			System.out.println("UserUp sql문 오류" + e.getMessage());
 		}finally {
 			getConn.pstmtClose();
 		}
-		
+		return res;
 		
 	}
 	

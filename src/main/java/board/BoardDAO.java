@@ -145,10 +145,33 @@ public class BoardDAO {
 			getConn.pstmtClose();
 		}
 	}
-	//좋아요 1 증가시키기
-	public void setGoodUpdate(String sector,int idx,String mid) {
+	
+	
+	
+	//좋아요 1 증감시키기
+	public void setGoodPlusUpdate(int goodUpDown, int idx) {
 		try {
-			sql = "insert into goodCnt values=(?,?,?,default)";
+			sql = "update board1 set good = good+? where idx=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, goodUpDown);
+			pstmt.setInt(2, idx);
+			pstmt.executeUpdate();
+			
+		}  catch (Exception e) {
+			System.out.println("sql문 오류 : " +e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
+	
+
+	
+	
+	//글 idx와 게시판, 좋아요 누른 사람을 저장
+	public void setGoodUserUpdate(String sector,int idx,String mid) {
+		try {
+			sql = "insert into goodCnt values(?,?,?,default)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, sector);
 			pstmt.setInt(2, idx);
@@ -161,25 +184,51 @@ public class BoardDAO {
 			getConn.pstmtClose();
 		}
 	}
-	//좋아요 했는지 여부 알아오기
-	
-	
-	public BoardVO getMIdxinfo(int idx) {
+
+	//좋아요 눌렀는지 여부 확인하기
+	public BoardVO getGoodCheck(String sector, int idx, String mid) {
 		vo = new BoardVO();
 		try {
-			sql = "select goodMember from board1 where idx=?";
+			sql="select * from goodCnt where sector=? and idx=? and mid=? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, idx);
+			pstmt.setString(1, sector);
+			pstmt.setInt(2, idx);
+			pstmt.setString(3, mid);
 			rs = pstmt.executeQuery();
+			
 			rs.next();
 			
-			vo.setGoodMember(rs.getString("goodMember"));
-			
+			vo.setIdx(rs.getInt("idx"));
+			vo.setMid(rs.getString("mid"));
 		}  catch (Exception e) {
 			System.out.println("sql문 오류 : " +e.getMessage());
+		} finally {
+			getConn.rsClose();
 		}
+		
+		
 		return vo;
 	}
+
+	public void setGoodUserDelete(String sector, int idx, String mid) {
+		try {
+			sql = "delete from goodCnt where sector=? and idx=? and mid=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, sector);
+			pstmt.setInt(2, idx);
+			pstmt.setString(3, mid);
+			pstmt.executeUpdate();
+			
+			
+		}catch (SQLException e) {
+			System.out.println("sql문 오류" + e.getMessage());
+		}finally {
+			getConn.pstmtClose();
+		}
+		
+	}
+	
+	
 	
 	
 }

@@ -25,21 +25,38 @@ public class UserUpdateCommand implements StudyInterface {
 		UserVO vo = new UserVO();
 		String str ="";
 		
+		int res = 0;
 		vo = dao.getIdxMid(idx,mid);
-		if(vo.getMid()!=null) {
-			dao.setUserUpdate(idx, mid,name,age,address);
-			str = "수정완료하였습니다.";
+		
+		boolean idxNullSw =false;
+		if(idx!=0) { //idx값이 없을 때 개별조회를 유도하기위한 sw
+			idxNullSw = true;
 		}
-		else {
+		
+		
+		if(vo.getMid()!=null && idxNullSw) { //idx와 mid가 동일할 때 다른 정보 수정 가능
+			res = dao.setUserUpdate(idx,mid,name,age,address);
+			if(res==1) {
+				str = "수정완료하였습니다.";
+			}
+		}
+		else if(res==0 && idxNullSw){ //idx와 mid가 매치되지 않을때, mid가 중복되지 않으면 정보 수정 가능
 			vo = dao.getMidUpdateSearch(mid);
 			if(vo.getMid()==null) {
-				dao.setUserUpdate(idx,mid,name,age,address);
-				str = "수정완료하였습니다.";
+				res = dao.setUserUpdate(idx,mid,name,age,address);
+				if(res==1) {
+					str = "수정완료하였습니다.";					
+				}
+				else {
+					str = "오류가 발생하여 수정하지 못하였습니다.";
+				}
 			}
 			else {
 				str = "중복된 아이디가 있어 수정할 수 없습니다.";
 			}
 		}
+		else str="개별조회를 눌러 유저 정보를 불러와야 수정이 가능합니다.";
+			
 		
 		response.getWriter().write(str);
 

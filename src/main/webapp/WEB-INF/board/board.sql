@@ -24,7 +24,8 @@ create table goodCnt(
 	wDate datetime default now()
 );
 
-
+desc goodCnt;
+select * from goodCnt;
 desc board1;
                             idx      mid     닉      제목                  이메일  									홈페이지												내용					조회수    	아이피				공개여부    날짜    추천수
 insert into board1 values (default,"admin","관리맨","게시판 서비스 시작합니다.","gnldbs1004@gmail.com","gnldbs1004@naver.com","이곳은 게시판 입니다.",default,"192.168.50.88",default,default,default);

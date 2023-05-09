@@ -184,7 +184,7 @@
 				<th>주소</th>
 				<td>
 					<input type="text" name="address" id="address"  class="form-control"/>
-					<input type="hidden" name=idx id=idx
+					<input type="hidden" name="idx" id="idx" value="${vo.idx}"/>
 				</td>
 			</tr>
 			<tr>
