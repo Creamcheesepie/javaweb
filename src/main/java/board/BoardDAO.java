@@ -146,12 +146,13 @@ public class BoardDAO {
 		}
 	}
 	//좋아요 1 증가시키기
-	public void setGoodUpdate(int idx ,String mIdx) {
+	public void setGoodUpdate(String sector,int idx,String mid) {
 		try {
-			sql = "update board1 set good=good+1 ,goodMember=goodMember+? where idx=? ";
+			sql = "insert into goodCnt values=(?,?,?,default)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, idx);
-			pstmt.setString(2, mIdx);
+			pstmt.setString(1, sector);
+			pstmt.setInt(2, idx);
+			pstmt.setString(3, mid);
 			pstmt.executeUpdate();
 			
 		}  catch (Exception e) {
@@ -160,6 +161,8 @@ public class BoardDAO {
 			getConn.pstmtClose();
 		}
 	}
+	//좋아요 했는지 여부 알아오기
+	
 	
 	public BoardVO getMIdxinfo(int idx) {
 		vo = new BoardVO();

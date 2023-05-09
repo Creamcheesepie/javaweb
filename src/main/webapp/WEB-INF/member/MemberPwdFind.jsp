@@ -9,8 +9,21 @@
 	<meta charset="UTF-8">
 	<title>title</title>
 	<jsp:include page="/include/bs4.jsp"/>
-  <script>
-  </script>
+	<script >
+	'use strict'
+	
+	function pageCheck(){
+		let pageSize = document.getElementById("pageSize").value;
+		location.href="${ctp}/MemberMain.mem?pag=${pag}&pageSize="+pageSize;
+	}
+	
+	function delCheck(idx){
+		let ans = confirm("현재 게시물을 삭제하십니까?");
+		if(ans) location.href="${ctp}/GuestDelete.gu?idx="+idx;
+	}
+	
+	</script>
+  
   <style>
   </style>
 </head>

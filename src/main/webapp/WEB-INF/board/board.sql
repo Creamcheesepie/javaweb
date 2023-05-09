@@ -17,6 +17,14 @@ create table board1 (
 	primary key(idx)
 );
 
+create table goodCnt(
+	sector varchar(20) not null, /*무슨 게시판인지 기록*/
+	idx int	not null, /*게시글 idx 기록*/
+	mid varchar(20) not null, /*좋아요 누른 사람의 mid*/
+	wDate datetime default now()
+);
+
+
 desc board1;
                             idx      mid     닉      제목                  이메일  									홈페이지												내용					조회수    	아이피				공개여부    날짜    추천수
 insert into board1 values (default,"admin","관리맨","게시판 서비스 시작합니다.","gnldbs1004@gmail.com","gnldbs1004@naver.com","이곳은 게시판 입니다.",default,"192.168.50.88",default,default,default);

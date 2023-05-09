@@ -234,11 +234,11 @@ public class MemberDAO {
 	public int MemberPwdReset(MemberVO vo) {
 		int res = 0;
 		try {
-			sql = "update member set pwd=? , salt=? where idx=? and mid=? and email=?";
+			sql = "update member set pwd=?,salt=? where idx=? and mid=? and email=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getPwd());
 			pstmt.setString(2, vo.getUid());
-			pstmt.setInt(3, vo.getIdx());
+			pstmt.setInt(3, vo.getIdx());			
 			pstmt.setString(4, vo.getMid());
 			pstmt.setString(5, vo.getEmail());
 			pstmt.executeUpdate();

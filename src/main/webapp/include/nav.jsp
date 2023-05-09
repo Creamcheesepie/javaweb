@@ -33,7 +33,8 @@
 				      <a class="dropdown-item" href="${ctp}/mapping/JoinSecure.re">회원가입(암호화)</a>
 				      <a class="dropdown-item" href="${ctp}/mapping/LoginSecure.re">로그인(암호화)</a>
 				      <a class="dropdown-item" href="${pageContext.request.contextPath}/study/0428_database/Login.re">로그인 연습1(매핑)</a>
-				      <a class="dropdown-item" href="#">Link 3</a>
+				      <a class="dropdown-item" href="${ctp}/Ajax1Test1">ajax1연습1</a>
+				      <a class="dropdown-item" href="${ctp}/UserList.st">ajax1연습2</a>
 				    </div>
 				  </div>  
 		      </li>

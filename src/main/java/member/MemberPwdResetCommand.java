@@ -22,6 +22,7 @@ public class MemberPwdResetCommand implements MemberInterface {
 		MemberVO vo = new MemberVO();
 		MemberDAO dao = new MemberDAO();
 		UUID uid = UUID.randomUUID();
+		
 		String strUid= uid.toString().substring(0,8);
 		pwd = strUid+pwd;
 		System.out.println(pwd);

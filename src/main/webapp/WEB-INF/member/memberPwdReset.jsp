@@ -45,8 +45,8 @@
 				<p>비밀번호 : <input type="password" name="pwd"/></p>
 				<input type="button" value="재설정" onclick="pwdReset()"/>
 				<input type="hidden" value="${mid}" name="mid"/>
-				<input type="hidden" value="${email}" name="mid"/>
-				<input type="hidden" value="${idx}" name="mid"/>
+				<input type="hidden" value="${email}" name="email"/>
+				<input type="hidden" value="${idx}" name="idx"/>
 			</form>
 		</c:if>
 		<c:if test="${findOk=='no'}">

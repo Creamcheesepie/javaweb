@@ -17,10 +17,13 @@ public class MemberPwdFindOkCommand implements MemberInterface {
 		MemberVO vo = new MemberVO();
 		
 		vo = dao.getMemberMidEmailCheck(mid,email);
+		
+		
+		
 		if(vo.getMid()!=null) {
 			request.setAttribute("idx", vo.getIdx());
-			request.setAttribute("mid", mid);
-			request.setAttribute("email", email);
+			request.setAttribute("mid", vo.getMid());
+			request.setAttribute("email", vo.getEmail());
 			request.setAttribute("msg", "아이디와 이메일에 일치하는 계정이 있습니다.");
 			request.setAttribute("findOk", "ok");
 		}

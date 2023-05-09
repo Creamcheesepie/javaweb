@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import study2.UUID.UuidCommand;
+
 @WebServlet("*.st")
 public class studyController extends HttpServlet {
 	@Override
@@ -39,6 +41,35 @@ public class studyController extends HttpServlet {
 			command = new UuidCommand();
 			command.execute(request, response);
 			viewPage+="/uuid.jsp";
+		}
+		else if(com.equals("/AjaxTest1")) {
+			
+			viewPage+="/ajax/ajax1Test.jsp";
+		}
+		else if(com.equals("/UserList")) {
+			command = new UserListCommand();
+			command.execute(request, response);
+			viewPage+="/ajax2/userList.jsp";
+		}
+		else if(com.equals("/UserInput")) {
+			command = new UserInputCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/UserDelete")) {
+			command = new UserDeleteCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/UserSearch")) {
+			command = new UserSearchCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/UserUpdate")) {
+			command = new UserUpdateCommand();
+			command.execute(request, response);
+			return;
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
