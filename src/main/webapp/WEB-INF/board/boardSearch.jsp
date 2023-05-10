@@ -36,18 +36,13 @@
 <jsp:include page="/include/header.jsp"/>
 <p><br/></p>	
 	<div class="container">
-		<h2 class="text-center">게시판 리스트</h2>
-		<table class="table table-borderless">
+		<h2 class="text-center">게시판 검색 결과</h2>
+		<div>
+			<font color="blue">${searchTitle}</font>(으)로 <font color="res">${searchString}</font>(을)를 검색한 결과 <font color="yellowgreen">${searchCnt}</font>건이 검색되었습니다.
+		</div>
+		<table class="table">
 			<tr>
-				<td><a href="${ctp}/BoardInput.bo" class="btn btn-primary btn-sm">글쓰기</a></td>
-				<td>
-					<select name="pageSize" id="pageSize" onchange="pageCheck()">
-						<option <c:if test="${pageSize==5}">selected</c:if>>5</option>
-						<option <c:if test="${pageSize==10}">selected</c:if>>10</option>
-						<option <c:if test="${pageSize==15}">selected</c:if>>15</option>
-						<option <c:if test="${pageSize==20}">selected</c:if>>20</option>
-					</select>건 표시
-				</td>
+				<td><a href="${ctp}/BoardList.bo?nowPage=${nowPage}&pageSize=${pageSize}" class="btn btn-sm btn-info">돌아가기</a></td>
 			</tr>
 		</table>
 		<table class="table table-hover text-center">
@@ -62,20 +57,11 @@
 			<c:forEach var="vo" items="${vos}" varStatus="st">
 				<%-- <c:if test="${vo.openSw eq'ok'}"> --%>
 					<tr>
-						<td>${curScrStartNo}</td>
+						<td>${searchCnt}</td>
 						<td>
-							
-							<c:if test="${vo.openSw == 'ok' ||sLevel ==0||sMid==vo.mid}">
 							<c:if test="${vo.hour_diff<=24}"><img src="${ctp}/images/new.gif"/></c:if>
-							<a href="${ctp}/BoardContent.bo?idx=${vo.idx}&nowPage=${nowPage}&pageSize=${pageSize}">${vo.title}</a>
+							<a href="${ctp}/BoardContent.bo?flag=search&search=${search}&searchString=${searchString}&idx=${vo.idx}&nowPage=${nowPage}&pageSize=${pageSize}">${vo.title}</a>
 							<c:if test="${vo.hour_diff<=24}">&nbsp;<span class="badge badge-warning text-white">new!</span></c:if>
-							</c:if>
-							<c:if test="${vo.openSw != 'ok'&&sLevel !=0&&sMid!=vo.mid}">
-							<c:if test="${vo.hour_diff<=24}"><img src="${ctp}/images/new.gif"/></c:if>
-							${vo.title}(비공개)
-							<c:if test="${vo.hour_diff<=24}">&nbsp;<span class="badge badge-warning text-white">new!</span></c:if>
-							</c:if>
-							
 						</td>
 						<td>${vo.nickName}</td>
 						<td>
@@ -96,7 +82,7 @@
 						<td>${vo.readNum}</td>
 						<td>${vo.good}</td>
 					</tr>
-					<c:set var="curScrStartNo" value="${curScrStartNo-1}"/>
+					<c:set var="searchCnt" value="${searchCnt-1}"/>
 				<%-- </c:if> --%>
 			</c:forEach>
 		</table>

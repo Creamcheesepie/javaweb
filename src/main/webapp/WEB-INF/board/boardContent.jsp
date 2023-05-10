@@ -12,9 +12,52 @@
 	<jsp:include page="/include/bs4.jsp"/>
 	<script>
 	'use strict';
+	
 	function goodCheck(){
 		location.href="${ctp}/BoardGoodCheck.bo?idx=${vo.idx}";
+		
 	}
+	
+	function boardDelete(){
+		let ans = confirm("이 글을 삭제하시겠습니까?");
+		if(ans)location.href="${ctp}/BoardDelete.bo?idx=${vo.idx}&pageSize=${pageSize}&nowPage=${nowPage}&flag=${flag}&nickName=${vo.nickName}";
+		
+	}
+	
+	/* 댓글달기(ajax활용) */
+	function replyCheck(){
+		let content = $("#content").val();
+		if(content.trim()==""){
+			alert("댓글을 입력하세요!");
+			$("#content").focus();
+			return false;
+		}
+		let query = {
+				boardIdx : ${vo.idx},
+				mid : '${sMid}',
+				nickName : '${sNickName}',
+				content : content,
+				postIp : '${pageContext.request.remoteAddr}'
+		}
+		$.ajax({
+			type : "post",
+			url : "${ctp}/BoardReplyInput.bo",
+			data : query,
+			success : function(res){
+				if(res == "1"){
+					alert("댓글이 입력되었습니다.");
+					location.reload();
+				}
+				else{
+					alert("댓글 입력 실패");
+				}
+			},
+			error : function(){
+				alert("전송오류.");
+			}
+		});
+	}
+	
 	</script>
 	<style>
 	th{
@@ -28,10 +71,15 @@
 <p><br/></p>	
 	<div class="container">
 		<h2>글 내용 보기</h2>
+		<table class="table table-borderless m-0 p-0">
+			<tr>
+				<td class="text-right">작성자  ip : ${vo.hostIp}</td>
+			</tr>
+		</table>
 		<table class="table table-bordered">
 			<tr>
 				<th>글쓴이</th>
-				<td>${vo.nickName}</th>
+				<td>${vo.nickName}</td>
 				<th>작성일</th>
 				<td>${fn:substring(vo.wDate,0,fn:length(vo.wDate)-2)}</td>
 			</tr>
@@ -57,11 +105,79 @@
 			</tr>
 			<tr>
 				<td colspan="4" class="text-center">
-					<input type="button" value="돌아가기" onclick="location.href='${ctp}/BoardList.bo'" class="btn btn-warning"/>
+					<c:if test="${flag != 'search'}">
+						<input type="button" value="돌아가기" onclick="location.href='${ctp}/BoardList.bo?pageSize=${pageSize}&nowPage=${nowPage}'" class="btn btn-warning"/>
+					</c:if>
+					<c:if test="${flag == 'search'}">
+						<input type="button" value="돌아가기" onclick="location.href='${ctp}/BoardSearch.bo?search=${search}&searchString=${searchString}&pageSize=${pageSize}&nowPage=${nowPage}'" class="btn btn-warning"/>
+					</c:if>
+					<c:if test="${sNickName==vo.nickName ||sLevel== 0}">
+						<input type="button" value="수정하기" onclick="location.href='${ctp}/BoardUpdate.bo?search=${search}&searchString=${searchString}&pageSize=${pageSize}&nowPage=${nowPage}&idx=${vo.idx}'" class="btn btn-success"/>
+						<input type="button" value="삭제하기" onclick="boardDelete()" class="btn btn-danger"/>
+					</c:if>
 				</td>
 			</tr>
 			
 		</table> 
+		
+		<!-- 이전글\당음글 처리 -->
+		<c:if test="${flag != 'search'}">
+		<table class="table table-borderless">
+			<tr>
+					<td>
+						<c:if test="${nextVo.nextIdx!=0}">
+						  👆 <a href="${ctp}/BoardContent.bo?idx=${nextVo.nextIdx}">다음글 : ${preVo.preTitle}</a>
+						</c:if>
+						<c:if test="${preVo.preIdx!=0}">
+							👇 <a href="${ctp}/BoardContent.bo?idx=${preVo.preIdx}">이전글 : ${nextVo.nextTitle}</a><br/>
+						</c:if>
+					</td>
+			</tr>
+		</table>
+		</c:if>
+		<!-- 댓글 리스트  -->
+	<div class="container">
+	<table class="table table-hover text-left">
+		<tr>
+			<th>작성자</th>
+			<th>댓글내용</th>
+			<th>작성일자</th>
+			<th>접속IP</th>
+		</tr>
+		<c:forEach var="replyVo" items="${replyVos}">
+			<tr>
+				<td class="text-center">
+				${replyVo.nickName}
+					<c:if test="${sMid == replyVo.mid ||sLevel == 0}">
+						(<a href="javascript:replyDelete(${replyVo.idx})" title="댓글삭제"><b>삭제</b></a>)
+					</c:if>
+				</td>
+				<td class="text-center">${fn:replace(replyVo.content, newLine,"<br/>")}</td>
+				<td class="text-center">${fn:substring(replyVo.wDate,0,10)}</td>
+				<td class="text-center">${replyVo.postIp}</td>
+				
+			</tr>
+		</c:forEach>
+	</table>
+	</div>
+		
+		
+		<!-- 댓글 입력창 -->
+
+		<form name="replyForm">
+			<table class="table table-center">
+				<tr>
+					<td style="width:85%" class="text-left">
+						글 내용 : 
+						<textarea rows="4" class="form-control" name="content" id="content"></textarea>
+					</td>
+					<td style="width:15%">
+						<p>작성자 : ${sNickName}</p>
+						<p><input type="button" value="댓글달기" onclick="replyCheck()" class="btn btn-info"/></p>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 <p><br/></p>
 <jsp:include page="/include/footer.jsp"/>

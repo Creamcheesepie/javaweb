@@ -15,8 +15,15 @@ public class BoardVO {
 	private int good;
 	private String goodMember;
 	
-	private int hour_diff;
-	private int date_diff;
+	private int hour_diff; //시간 차이 계산 필드
+	private int date_diff; //날짜 차이 계산 필드
+	
+	//이전글 / 다음글을 위한 변수 설정
+	
+	private int preIdx;
+	private int nextIdx;
+	private String preTitle;
+	private String nextTitle;
 
 	public int getIdx() {
 		return idx;
@@ -132,12 +139,37 @@ public class BoardVO {
 		this.date_diff = date_diff;
 	}
 
-	@Override
-	public String toString() {
-		return "BoardVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", title=" + title + ", email=" + email
-				+ ", homePage=" + homePage + ", content=" + content + ", readNum=" + readNum + ", hostIp=" + hostIp
-				+ ", openSw=" + openSw + ", wDate=" + wDate + ", good=" + good + ", hour_diff=" + hour_diff + ", date_diff="
-				+ date_diff + "]";
+
+	public int getPreIdx() {
+		return preIdx;
+	}
+
+	public void setPreIdx(int preIdx) {
+		this.preIdx = preIdx;
+	}
+
+	public int getNextIdx() {
+		return nextIdx;
+	}
+
+	public void setNextIdx(int nextIdx) {
+		this.nextIdx = nextIdx;
+	}
+
+	public String getPreTitle() {
+		return preTitle;
+	}
+
+	public void setPreTitle(String preTitle) {
+		this.preTitle = preTitle;
+	}
+
+	public String getNextTitle() {
+		return nextTitle;
+	}
+
+	public void setNextTitle(String nextTitle) {
+		this.nextTitle = nextTitle;
 	}
 
 	public String getGoodMember() {
@@ -148,12 +180,14 @@ public class BoardVO {
 		this.goodMember = goodMember;
 	}
 
-	
-	
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "BoardVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", title=" + title + ", email=" + email
+				+ ", homePage=" + homePage + ", content=" + content + ", readNum=" + readNum + ", hostIp=" + hostIp
+				+ ", openSw=" + openSw + ", wDate=" + wDate + ", good=" + good + ", goodMember=" + goodMember + ", hour_diff="
+				+ hour_diff + ", date_diff=" + date_diff + ", preIdx=" + preIdx + ", nextIdx=" + nextIdx + ", preTitle="
+				+ preTitle + ", nextTitle=" + nextTitle + "]";
+	}
 	
 		
 }

@@ -7,10 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class BoardInputOkCommand implements BoardInterface {
+public class BoardUpdateOkCommand implements BoardInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse resonse) throws ServletException, IOException {
+		int idx = request.getParameter("idx")==null?0: Integer.parseInt(request.getParameter("idx"));
+		int nowPage = request.getParameter("nowPage")==null?0: Integer.parseInt(request.getParameter("nowPage"));
+		int pageSize = request.getParameter("pageSize")==null?0: Integer.parseInt(request.getParameter("pageSize"));
+		
 		String title = request.getParameter("title")==null?"":request.getParameter("title");
 		String email = request.getParameter("email")==null?"":request.getParameter("email");
 		String homePage = request.getParameter("homePage")==null?"":request.getParameter("homePage");
@@ -24,7 +28,7 @@ public class BoardInputOkCommand implements BoardInterface {
 		
 		BoardVO vo = new BoardVO();
 //		vo.setNickName(nickName); 현재 DB에 닉네임이 없으니 mid로 대체
-		vo.setMid(mid);
+		vo.setIdx(idx);
 		vo.setNickName(nickName);
 		vo.setEmail(email);
 		vo.setHostIp(hostIp);
@@ -35,16 +39,17 @@ public class BoardInputOkCommand implements BoardInterface {
 		vo.setOpenSw(openSw);
 		
 		BoardDAO dao = new BoardDAO();
-		int res = dao.setBoardInput(vo);
+		
+		int res = dao.setBoardUpdateOk(vo);
 		
 		if(res==1){
-			request.setAttribute("msg", "게시판에 글이 저장되었습니다.");
-			request.setAttribute("url", request.getContextPath()+"/BoardList.bo");
+			request.setAttribute("msg", "게시판에 글이 수정되었습니다.");
 		}
 		else {
-			request.setAttribute("msg", "게시판에 글이 저장되지않았습니다.");
-			request.setAttribute("url", request.getContextPath()+"/BoardInput.bo");
+			request.setAttribute("msg", "게시판에 글이 수정되지않았습니다.");
 		}
-		
+		request.setAttribute("url", request.getContextPath()+"/BoardContent.bo?idx="+idx+"&nowPage="+nowPage+"&pageSize="+pageSize);
+
 	}
+
 }
