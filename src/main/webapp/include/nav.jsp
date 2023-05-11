@@ -7,7 +7,7 @@
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	  <!-- <a class="navbar-brand" href="http://localhost:9090/javaweb/">home</a> -->
-	  <a class="navbar-brand" href="http://192.168.50.88:9090/javaweb/">home</a>
+	  <a class="navbar-brand" href="${ctp}/">home</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
@@ -20,6 +20,7 @@
 		      <li class="nav-item">
 		        <a class="nav-link" href="${ctp}/BoardList.bo">board</a>
 		      </li>
+	      <c:if test="${sLevel>1 || sLevel==0}">
 		      <li class="nav-item">
 		        <a class="nav-link" href="#">PDS</a>
 		      </li>
@@ -63,12 +64,15 @@
 				  </div>  
 		      </li>
 		      <li>
+		      </c:if>
 				  <div class="dropdown">
 				  	<button type="button" class="btn text-light dropdown-toggle" data-toggle="dropdown">개인정보</button>
 				   	<div class="dropdown-menu">
+				   		<c:if test="${sLevel>1 || sLevel==0}">
 				      <a class="dropdown-item" href="${ctp}/MemberMain.mem">회원전용방</a>
-				      <a class="dropdown-item" href="#">회원정보수정</a>
 				      <a class="dropdown-item" href="${ctp}/MemberList.mem">회원목록</a>
+				      </c:if>
+				      <a class="dropdown-item" href="#">회원정보수정</a>
 				      <a class="dropdown-item" href="#">회원탈퇴</a>
 				      <c:if test="${sLevel==0}">
 				      	<a class="dropdown-item" href="#">관리자 메뉴</a>

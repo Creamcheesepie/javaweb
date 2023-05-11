@@ -45,7 +45,7 @@ public class MemberLoginOkCommand implements MemberInterface {
 			request.setAttribute("url", request.getContextPath()+"/MemberLogin.mem");
 		}
 		else {
-			// 로그인 성공시에 처리할내용들.(1. 주요 필드 셋션에 저장, 2오늘 방뭄횟수 처리, 3.총 방문수와 방문포인트 처리 4.쿠키에 아이디 저장 유무)
+			// 로그인 성공시에 처리할내용들.(1. 주요 필드 셋션에 저장, 2오늘 방뭄횟수 처리, 3.총 방문수와 방문포인트 처리 4.쿠키에 아이디 저장 유무 5.등급업)
 			//1.
 			HttpSession session =  request.getSession();
 			
@@ -53,6 +53,21 @@ public class MemberLoginOkCommand implements MemberInterface {
 			session.setAttribute("sIdx", vo.getIdx());
 			session.setAttribute("sNickName", vo.getNickName());
 			session.setAttribute("sLevel", vo.getLevel());
+			
+			//로그인 시 등급업 조건 충족하면 준회원에서 정회원으로 업 알고리즘
+			String name = vo.getName();
+			System.out.println(name);
+			int res= dao.getMemberGuestCnt(mid,name);
+			int visitCnt = vo.getVisitCnt();
+			
+			System.out.println(res);
+			System.out.println(visitCnt);
+			if(res>4 && visitCnt>10) {
+				
+				dao.setMemberLevel(2,mid);
+				session.setAttribute("sLevel",2);
+			}
+			
 			
 			//2.
 			Date now = new Date();
@@ -84,6 +99,11 @@ public class MemberLoginOkCommand implements MemberInterface {
 			else {
 				cMid.setMaxAge(0);
 			}
+			
+			
+			
+			
+			
 			resonse.addCookie(cMid);
 			request.setAttribute("msg", vo.getNickName() + "님 환영합니다.");
 			request.setAttribute("url", request.getContextPath()+"/MemberMain.mem");

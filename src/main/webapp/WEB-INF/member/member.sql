@@ -39,3 +39,6 @@ select * from member;
 show tables;
 
 drop table member;
+
+
+select *,(select count(*) from guest where name='김피피' ) as guestCnt from member m where mid='ppman1234';

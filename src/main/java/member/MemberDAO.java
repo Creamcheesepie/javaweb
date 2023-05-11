@@ -51,7 +51,7 @@ public class MemberDAO {
 					vo.setUserDel(rs.getString("userDel"));
 					vo.setPoint(rs.getInt("point"));
 					vo.setLevel(rs.getInt("level"));
-					vo.setVisitCnt(rs.getString("visitcnt"));
+					vo.setVisitCnt(rs.getInt("visitcnt"));
 					vo.setSingInDate(rs.getString("signinDate"));
 					
 					vo.setLastDate(rs.getString("lastDate"));
@@ -103,7 +103,7 @@ public class MemberDAO {
 					vo.setUserDel(rs.getString("userDel"));
 					vo.setPoint(rs.getInt("point"));
 					vo.setLevel(rs.getInt("level"));
-					vo.setVisitCnt(rs.getString("visitcnt"));
+					vo.setVisitCnt(rs.getInt("visitcnt"));
 					vo.setSingInDate(rs.getString("signinDate"));
 					
 					vo.setLastDate(rs.getString("lastDate"));
@@ -253,11 +253,13 @@ public class MemberDAO {
 	}
 	
 	//회원 목록
-	public ArrayList<MemberVO> getMemberList() {
+	public ArrayList<MemberVO> getMemberList(int startIndexNo, int pageSize) {
 		ArrayList<MemberVO> vos = new ArrayList<>();
 		try {
-			sql = "select * from member order by idx desc";
+			sql = "select * from member order by idx desc limit ?,?";
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, startIndexNo);
+			pstmt.setInt(2, pageSize);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -286,7 +288,7 @@ public class MemberDAO {
 				vo.setUserDel(rs.getString("userDel"));
 				vo.setPoint(rs.getInt("point"));
 				vo.setLevel(rs.getInt("level"));
-				vo.setVisitCnt(rs.getString("visitcnt"));
+				vo.setVisitCnt(rs.getInt("visitcnt"));
 				vo.setSingInDate(rs.getString("signinDate"));
 				
 				vo.setLastDate(rs.getString("lastDate"));
@@ -305,6 +307,64 @@ public class MemberDAO {
 		
 		return vos;
 	}
+	
+	
+	//이름으로 작성된 방명록 글 갯수 가져오기
+	public int getMemberGuestCnt(String mid, String name) {
+		int res = 0;
+		try {
+			sql = "select *,(select count(*) from guest where name=? ) as guestCnt from member m where mid=?;";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, mid);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				res = rs.getInt("guestCnt");				
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("정보 입력 sql문 오류" + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return res;
+	}
+	
+	//멤버 등급만 업데이트 
+	public void setMemberLevel(int i,String mid) {
+		try {
+			sql = "update member set level=? where mid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, i);
+			pstmt.setString(2, mid);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("정보 입력 sql문 오류" + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
+	
+	public int getTotRecCnt() {
+		int totRecCnt=0;
+		try {
+			sql="select count(idx) as cnt from member";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			totRecCnt=rs.getInt("cnt");
+			
+		} catch (Exception e) {
+			getConn.rsClose();
+		}
+		
+		return totRecCnt;
+	}
+
+	
+	
 	
 	//방문포인투룰
 

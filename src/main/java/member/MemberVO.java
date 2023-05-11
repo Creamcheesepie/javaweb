@@ -20,7 +20,7 @@ public class MemberVO {
 	private String userDel;
 	private int point;
 	private int level;
-	private String visitCnt;
+	private int visitCnt;
 	private String signInDate;
 	private String lastDate;
 	private int todayCnt;
@@ -146,10 +146,10 @@ public class MemberVO {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	public String getVisitCnt() {
+	public int getVisitCnt() {
 		return visitCnt;
 	}
-	public void setVisitCnt(String visitCnt) {
+	public void setVisitCnt(int visitCnt) {
 		this.visitCnt = visitCnt;
 	}
 	public String getSingInDate() {
