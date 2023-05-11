@@ -58,6 +58,37 @@
 		});
 	}
 	
+	function replyDelete(idx){
+		let ans = confirm("댓글을 삭제하시겠습니까?");
+		
+		if(ans){
+			$.ajax({
+				type : "post",
+				url : "${ctp}/BoardReplyDelete.bo",
+				data : {idx:idx},
+				success : function(res){
+					
+					if(res=='1'){
+						alert("댓글이 삭제되었습니다.");
+						location.reload();
+					}
+					else {
+						alert("오류가 발생하여 댓글이 삭제되지 않았습니다.")
+					}
+				},
+				error : function(){
+					alert("오류가 발생하여 댓글이 삭제되지 않았습니다. 잠시 기다리신 후 새로고침하여 삭제하시거나 이 현상이 반복되면 운영자에게 문의주십시오.")
+				}
+			})
+		};
+		
+		
+	}
+
+	//댓글 삭제
+	
+	
+	
 	</script>
 	<style>
 	th{

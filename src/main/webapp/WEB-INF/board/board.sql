@@ -113,4 +113,39 @@ select * from board1 where idx = 6;
 select idx,title from board1 where idx < ? order by idx desc limit 1; /*이전글*/
 select idx,title from board1 where idx > ? limit 1; /*다음글*/
 
+/*게시판 리스트의 글 제목 옆에 해당 글의 댓글 수를 출력합시다.*/
+select * from board1;
+select from board1 b, boardreply r (select count(idx) from boardreply where boardIdx = 28) as replyCnt ;
+
+-- 앞의 예에서 원본글의 고유 번호와 함께 총 댓글의 갯수는 replyCnt로 출력?
+select boardIdx, count(*) as replyCnt from boardreply where boardIdx=28;
+
+select boardIdx, count(*) as replyCnt,
+(select nickName from board1 where idx = 28) 
+from boardreply 
+where boardIdx=28;
+
+-- 앞의 내용들을 부모관점(게시판)에서 추출하기
+select idx,(select count(*) from boardreply where boardIdx=28)as replyCnt, nickname 
+from board1
+where idx = 28;
+
+select *,(select count(*) from boardreply where boardIdx=28)as replyCnt 
+from board1
+where idx = ?;
+-- 부모테이블을 기준으로 처리하고 board1 테이블의 1페이 5건을 출력하되, board1 테이플의 모든 내용과 현재 출력된 게시글에 달려있는 댓글의 개수를 출력
+-- 단 , 최신글을 먼저 출려시켜주세용. 
+select * ,
+(select count(*)from boardReply where boardIdx=b.idx) as replyCnt
+from
+board1 b
+order by idx desc
+limit 5;
+
+select *, datediff(now(),wDate) as date_diff, timestampdiff(hour, wDate,now()) as hour_diff,(select count(*) from boardReply where boardIdx=b.idx) as replyCount from board1 b order by idx desc limit 0,5; 
+
+
+
+
+
 

@@ -24,6 +24,8 @@ public class BoardVO {
 	private int nextIdx;
 	private String preTitle;
 	private String nextTitle;
+	
+	private int replyCount; // 댓글의 갯수~~~
 
 	public int getIdx() {
 		return idx;
@@ -180,14 +182,24 @@ public class BoardVO {
 		this.goodMember = goodMember;
 	}
 
+	public int getreplyCount() {
+		return replyCount;
+	}
+
+	public void setreplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", title=" + title + ", email=" + email
 				+ ", homePage=" + homePage + ", content=" + content + ", readNum=" + readNum + ", hostIp=" + hostIp
 				+ ", openSw=" + openSw + ", wDate=" + wDate + ", good=" + good + ", goodMember=" + goodMember + ", hour_diff="
 				+ hour_diff + ", date_diff=" + date_diff + ", preIdx=" + preIdx + ", nextIdx=" + nextIdx + ", preTitle="
-				+ preTitle + ", nextTitle=" + nextTitle + "]";
+				+ preTitle + ", nextTitle=" + nextTitle + ", replyCount=" + replyCount + "]";
 	}
+	
+	
 	
 		
 }

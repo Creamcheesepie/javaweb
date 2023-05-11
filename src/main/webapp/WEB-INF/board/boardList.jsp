@@ -67,7 +67,7 @@
 							
 							<c:if test="${vo.openSw == 'ok' ||sLevel ==0||sMid==vo.mid}">
 							<c:if test="${vo.hour_diff<=24}"><img src="${ctp}/images/new.gif"/></c:if>
-							<a href="${ctp}/BoardContent.bo?idx=${vo.idx}&nowPage=${nowPage}&pageSize=${pageSize}">${vo.title}</a>
+							<a href="${ctp}/BoardContent.bo?idx=${vo.idx}&nowPage=${nowPage}&pageSize=${pageSize}">${vo.title}(${vo.replyCount})</a>
 							<c:if test="${vo.hour_diff<=24}">&nbsp;<span class="badge badge-warning text-white">new!</span></c:if>
 							</c:if>
 							<c:if test="${vo.openSw != 'ok'&&sLevel !=0&&sMid!=vo.mid}">

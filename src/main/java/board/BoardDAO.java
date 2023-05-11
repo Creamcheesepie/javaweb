@@ -26,9 +26,11 @@ public class BoardDAO {
 //			sql = "select * from board1 order by idx desc limit ?,?";
 //			sql = "select *,timestampdiff(hour, wDate,now()) as hour_diff "
 //					+ "from board1 order by idx desc limit ?,?";
-			sql = "select *,datediff(now(),wDate) as date_diff,timestampdiff(hour, wDate,now()) as hour_diff "
-					+ "from board1 order by idx desc limit ?,?";
-
+//			sql = "select *,datediff(now(),wDate) as date_diff,timestampdiff(hour, wDate,now()) as hour_diff "
+//					+ "from board1 order by idx desc limit ?,?";
+				sql = "select *, datediff(now(),wDate) as date_diff, timestampdiff(hour, wDate,now()) as hour_diff, "
+												+ "(select count(*) from boardReply where boardIdx=b.idx) as replyCount "
+												+ "from board1 b order by idx desc limit ?,? ";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startIndexNo);
@@ -51,6 +53,7 @@ public class BoardDAO {
 				vo.setGood(rs.getInt("good"));
 				vo.setHour_diff(rs.getInt("hour_diff"));
 				vo.setDate_diff(rs.getInt("date_diff"));
+				vo.setreplyCount(rs.getInt("replyCount"));
 				vos.add(vo);
 			}
 			
@@ -392,6 +395,22 @@ public class BoardDAO {
 			getConn.rsClose();
 		}
 		return replyVos;
+	}
+
+	public int setReplyDelete(int idx) {
+		int res = 0;
+		try {
+			sql = "delete from boardReply where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+			res=1;
+		} catch (SQLException e) {
+			System.out.println("sql문 오류" + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
 	}
 	
 	
