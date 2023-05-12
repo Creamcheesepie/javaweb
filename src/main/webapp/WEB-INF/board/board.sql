@@ -102,6 +102,7 @@ select timestampdiff(hour, wDate,now()) as hour_diff from board1;
 select *,timestampdiff(hour, wDate,now()) as hour_diff from board1 order by idx desc;
 select *,datediff(now(),wDate) as date_diff,timestampdiff(hour, wDate,now()) as hour_diff from board1 order by idx desc limit 0,5;
 select *,timestampdiff(hour, wDate,now()) as hour_diff from board1 order by idx desc limit 0,5;
+select timestampdiff(day, '2023-05-04',now());
 
 /*날짜 양식(date_formt()) : 4자년도(%Y)/2자리년도(%y),월(%m),일(%d)*/
 select date_format(wDate,'%Y-%m-%d %H:%i') from board1;

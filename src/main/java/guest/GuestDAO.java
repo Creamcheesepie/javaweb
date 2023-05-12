@@ -149,6 +149,23 @@ public class GuestDAO {
 		return totRecCnt;
 	}
 	
+	public int getTotRecForEachMemberCnt(String mid) {
+		int totRecCnt=0;
+		
+		try {
+			sql="select count(idx) as cnt from guest where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			rs = pstmt.executeQuery();
+			rs.next();
+			totRecCnt=rs.getInt("cnt");
+			
+		} catch (Exception e) {
+			rsClose();
+		}
+		
+		return totRecCnt;
+	}
 	//방명록 삭제 처리
 	public int setGuestDelete(int idx) {
 		int res = 0;

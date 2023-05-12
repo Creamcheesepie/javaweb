@@ -26,6 +26,8 @@ public class MemberVO {
 	private int todayCnt;
 	private String uid;
 	
+	private int deleteDiff;
+	
 	public String getUid() {
 		return uid;
 	}
@@ -170,6 +172,13 @@ public class MemberVO {
 	public void setTodayCnt(int todayCnt) {
 		this.todayCnt = todayCnt;
 	}
+	
+	public int getDeleteDiff() {
+		return deleteDiff;
+	}
+	public void setDeleteDiff(int deleteDiff) {
+		this.deleteDiff = deleteDiff;
+	}
 	@Override
 	public String toString() {
 		return "MemberVO [idx=" + idx + ", mid=" + mid + ", pwd=" + pwd + ", nickName=" + nickName + ", name=" + name
@@ -177,7 +186,10 @@ public class MemberVO {
 				+ email + ", homePage=" + homePage + ", job=" + job + ", hobby=" + hobby + ", photo=" + photo + ", content="
 				+ content + ", userInfoSw=" + userInfoSw + ", userDel=" + userDel + ", point=" + point + ", level=" + level
 				+ ", visitCnt=" + visitCnt + ", signInDate=" + signInDate + ", lastDate=" + lastDate + ", todayCnt=" + todayCnt
-				+ ", uid=" + uid + "]";
+				+ ", uid=" + uid + ", deleteDiff=" + deleteDiff + "]";
 	}
+
+	
+	
 	
 }

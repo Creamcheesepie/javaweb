@@ -29,7 +29,7 @@ public class MemberLoginOkCommand implements MemberInterface {
 		MemberVO vo = dao.getMemberMidCheck(mid);
 		
 		
-		if(vo.getUid() == null) {
+		if(vo.getUid() == null || vo.getUserDel().equals("OK")) {
 			request.setAttribute("msg", "회원정보가 없습니다. \\n 다시 입력해 주세요.");
 			request.setAttribute("url", request.getContextPath()+"/MemberLogin.mem");
 			return;

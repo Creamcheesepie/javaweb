@@ -40,7 +40,7 @@ public class MemberMainCommand implements MemberInterface {
 		//1.현재 페이지의 번호를 구한다.
 		int pag = request.getParameter("pag")==null? 1 : Integer.parseInt(request.getParameter("pag"));
 		int pageSize =  request.getParameter("pageSize")==null? 5 : Integer.parseInt(request.getParameter("pageSize"));
-		int totalRecordCount = gdao.getTotRecCnt();		
+		int totalRecordCount = gdao.getTotRecForEachMemberCnt(mid);		
 		int totalPage = (totalRecordCount%pageSize)==0?(totalRecordCount/pageSize) : (totalRecordCount/pageSize)+1;
 		int startIndexNo = (pag - 1) *pageSize;
 		int curScrStartNo = totalRecordCount - startIndexNo;

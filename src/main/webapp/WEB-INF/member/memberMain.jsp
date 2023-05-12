@@ -9,6 +9,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>title</title>
 	<jsp:include page="/include/bs4.jsp"/>
+	<script>
+		if(${sLevel == 1 }) alert("준회원입니다. 운영자 및 관리자의 승인이 있거나, 방명록에 게시글 5개 이상 작성하고 10번 이상 방문해주시면 자동으로 등업됩니다.")
+	</script>
 </head>
 <body>
 <jsp:include page="/include/header.jsp"/>

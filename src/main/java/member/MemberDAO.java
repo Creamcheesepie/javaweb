@@ -256,7 +256,7 @@ public class MemberDAO {
 	public ArrayList<MemberVO> getMemberList(int startIndexNo, int pageSize) {
 		ArrayList<MemberVO> vos = new ArrayList<>();
 		try {
-			sql = "select * from member order by idx desc limit ?,?";
+			sql = "select *, timestampdiff(day, lastDate,now()) as deleteDiff from member order by idx desc limit ?,?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, startIndexNo);
 			pstmt.setInt(2, pageSize);
@@ -294,6 +294,8 @@ public class MemberDAO {
 				vo.setLastDate(rs.getString("lastDate"));
 				vo.setTodayCnt(rs.getInt("todayCnt"));
 				vo.setUid(rs.getString("salt"));
+				
+				vo.setDeleteDiff(rs.getInt("deleteDiff"));
 				vos.add(vo);
 			}
 			
@@ -347,6 +349,8 @@ public class MemberDAO {
 		}
 	}
 	
+
+	
 	public int getTotRecCnt() {
 		int totRecCnt=0;
 		try {
@@ -361,6 +365,87 @@ public class MemberDAO {
 		}
 		
 		return totRecCnt;
+	}
+	//비밀번호 변경처리
+	public int setMemberPwdUpdateOk(String mid, String newPwd) {
+		int res= 0;
+		try {
+			sql = "update member set pwd=? where mid =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, mid);
+			pstmt.executeUpdate();
+			
+			res=1;
+		} catch (SQLException e) {
+			System.out.println("정보 입력 sql문 오류" + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
+	
+	//회원 정보 수정
+	public int setMemberUpdateOk(MemberVO vo) {
+		int res= 0;
+		try {
+			sql = "update member set nickName=?, name=?, gender=?, birthday=?,tell=?,"
+					+ "address=?, email=?,homePage=?,job=?,hobby=?,photo=?,content=?,userInfoSw=?  where mid =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getNickName());
+			pstmt.setString(2, vo.getName());
+			pstmt.setString(3, vo.getGender());
+			pstmt.setString(4, vo.getBirthday());
+			pstmt.setString(5, vo.getTell());
+			pstmt.setString(6, vo.getAddress());
+			pstmt.setString(7, vo.getEmail());
+			pstmt.setString(8, vo.getHomePage());
+			pstmt.setString(9, vo.getJob());
+			pstmt.setString(10, vo.getHobby());
+			pstmt.setString(11, vo.getPhoto());
+			pstmt.setString(12, vo.getContent());
+			pstmt.setString(13, vo.getUserInfoSw());
+			pstmt.setString(14, vo.getMid());
+			pstmt.executeUpdate();
+			res=1;
+		} catch (SQLException e) {
+			System.out.println("정보 입력 sql문 오류" + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		
+		
+		return res;
+	}
+	
+	// 회원 탈퇴신청
+	public void setDeleteOk(String mid) {
+		try {
+			sql = "update member set userDel = 'OK' where mid=?";
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			System.out.println("정보 입력 sql문 오류" + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		
+	}
+	public void setMemberDelete(int idx) {
+		try {
+			sql = "delete from member where idx=? ";
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			System.out.println("정보 입력 sql문 오류" + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		
 	}
 
 	
