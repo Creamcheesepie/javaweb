@@ -162,7 +162,7 @@ public class MemberDAO {
 	public void setTodayCntUpdate(String mid) {
 	
 		try {
-			sql = "update member set todaCnt = 0 where mid = ?";
+			sql = "update member set todayCnt = 0 where mid = ?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
 			pstmt.executeUpdate();
@@ -348,6 +348,8 @@ public class MemberDAO {
 			getConn.pstmtClose();
 		}
 	}
+	//idx로 멤버 등급 업데이트
+	
 	
 
 	

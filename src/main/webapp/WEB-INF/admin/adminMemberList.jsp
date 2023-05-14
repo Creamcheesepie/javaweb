@@ -61,6 +61,73 @@
 			})
 		}
 		
+		function oneClickChange(){
+			let ans = confirm("선택하신 내용으로 일괄변경 하시겠습니까?");
+			if(!ans) return false;
+			
+			let stridx ='';
+			let clickCnt = 0;
+			document.querySelectorAll(".MCS").forEach(function(v,i){
+				if(v.checked === true){
+					stridx += v.value+"/";
+					clickCnt++;
+				}
+			})
+			
+			if(clickCnt==0){
+				alert("변경할 회원의 번호를 체크해주세요.");
+				return false;
+			}
+			
+			let level = document.getElementById("multilevelchange").value;
+			
+			$.ajax({
+				type : "post",
+				url : "${ctp}/AdminOneClickChange.ad",
+				data : {stridx:stridx,level:level},
+				success : function(){
+					alert("작업완료")
+					location.reload();
+				},
+				error : function(){
+					alert("작업실패, 잠시 후 재시도하시거나 \n 현상이 반복되면 서비스 관리자에게 문의 주십시오.")
+				}
+			})
+			
+		}
+		
+		/*  */
+		
+		function totalSelect(e){
+			if(e.target.checked){
+				document.querySelectorAll(".MCS").forEach(function(v,i){
+					v.checked=true;
+				})
+			}
+			else{
+				document.querySelectorAll(".MCS").forEach(function(v,i){
+					v.checked=false;
+				})
+			}
+		}
+		
+		function eachClickChange(e){
+			let checkCount = 0;
+			document.querySelectorAll(".MCS").forEach(function(v,i){
+				if(v.checked === false){
+				checkCount++;
+				}
+			});
+			if(checkCount>0) {
+				document.getElementById("totalSelect").checked = false;
+			} else if(checkCount === 0) {
+				document.getElementById("totalSelect").checked = true;
+			}
+		}
+		
+		
+		
+		
 		
 	</script>
 </head>
@@ -75,6 +142,35 @@
 						<option <c:if test="${pageSize==10}">selected</c:if>>10</option>
 					</select>건 표시
 		<table class="table table-hover text-center">
+			<tr class="table">
+				<th>
+				일괄체크
+			  <input type="checkbox" name="totalSelect" id="totalSelect" onclick="totalSelect(event)"/>
+				</th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th>비공개 여부
+				<select name="userInfoSwChange" id="userInfoSwChange">
+					<option value="선택">선택</option>
+					<option value="공개">공개</option>
+					<option value="비공개">비공개</option>
+				</select>
+				</th>
+				<th></th>
+				<th></th>
+				<th>
+				등급
+					<select name="multilevelchange" id="multilevelchange" >	
+						<option value="0" >관리자</option>
+						<option value="1" >준회원</option>
+						<option value="2" selected>정회원</option>
+						<option value="3" >우수회원</option>
+						<option value="4" >운영자</option>
+					</select>	
+				</th>
+				<th><input type="button" value="일괄변경" name="oneClickChange" class="btn btn-success" onclick="oneClickChange()"/></th>
+			</tr>
 			<tr class="table-dark text-dark">
 				<th>번호</th>
 				<th>아이디</th>
@@ -88,7 +184,10 @@
 			</tr>
 			<c:forEach var="vo" items="${vos}" varStatus="se">
 				<tr>
-					<td>${vo.idx}</td>
+					<td>
+					${vo.idx}
+					<input type="checkbox" name="multiChangeSelect" id="MCS${vo.idx}" class="MCS" onclick="eachClickChange()" value="${vo.idx}"/>
+					</td>
 					<td><a href="${ctp}/AdminMemberInfor.ad?mid=${vo.mid}&nowPage=${nowPage}&pageSize=${pageSize}">${vo.mid}</a></td>
 					<td>${vo.nickName}</td>
 					<td>${vo.name}</td>
@@ -100,7 +199,7 @@
 								<select name="level" onchange="levelChange(this)">
 									<option value="0/${vo.idx}" ${vo.level==0?"selected":""}>관리자</option>
 									<option value="1/${vo.idx}" ${vo.level==1?"selected":""}>준회원</option>
-									<option value="3/${vo.idx}" ${vo.level==2?"selected":""}>정회원</option>
+									<option value="2/${vo.idx}" ${vo.level==2?"selected":""}>정회원</option>
 									<option value="3/${vo.idx}" ${vo.level==3?"selected":""}>우수회원</option>
 									<option value="4/${vo.idx}" ${vo.level==4?"selected":""}>운영자</option>
 								</select>

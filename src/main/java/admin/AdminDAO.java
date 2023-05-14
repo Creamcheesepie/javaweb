@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import conn.GetConn;
 import member.MemberVO;
@@ -35,6 +34,22 @@ public class AdminDAO {
 				getConn.pstmtClose();
 			}
 			return res;
+		}
+		
+		//idx로 멤버 등급 업데이트
+		public void setMemberLevelOnIdx(int i,String idx) {
+			try {
+				sql = "update member set level=? where idx=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, i);
+				pstmt.setString(2, idx);
+				pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				System.out.println("정보 입력 sql문 오류" + e.getMessage());
+			} finally {
+				getConn.pstmtClose();
+			}
 		}
 		
 		
