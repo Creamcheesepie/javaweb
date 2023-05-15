@@ -151,7 +151,7 @@
 			
 		</table> 
 		
-		<!-- 이전글\당음글 처리 -->
+		<!-- 이전글 다음글 처리 -->
 		<c:if test="${flag != 'search'}">
 		<table class="table table-borderless">
 			<tr>

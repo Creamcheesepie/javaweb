@@ -48,6 +48,8 @@
 				      <a class="dropdown-item" href="${pageContext.request.contextPath}/study/0428_database/Login.re">로그인 연습1(매핑)</a>
 				      <a class="dropdown-item" href="${ctp}/Ajax1Test1">ajax1연습1</a>
 				      <a class="dropdown-item" href="${ctp}/UserList.st">ajax1연습2</a>
+				      <a class="dropdown-item" href="Password.st">암호화연습</a>
+				      <a class="dropdown-item" href="Uuid.st">UUID 연습</a>
 				    </div>
 				  </div>  
 		      </li>
@@ -58,8 +60,10 @@
 				      <a class="dropdown-item" href="${pageContext.request.contextPath}/study/0428_database/login.jsp">로그인 연습2</a>
 				      <a class="dropdown-item" href="#">로그인 연습3</a>
 				      <a class="dropdown-item" href="${ctp}/mapping/Test1">url 매핑</a>
-				      <a class="dropdown-item" href="Password.st">암호화연습</a>
-				      <a class="dropdown-item" href="Uuid.st">UUID 연습</a>
+				      <a class="dropdown-item" href="${ctp}/FileUpLoad1.st">업로드 연습</a>
+				      <a class="dropdown-item" href="${ctp}/FileUpLoad2.st">다중 업로드 연습</a>
+				      <a class="dropdown-item" href="${ctp}/FileUpLoad3.st">다중 업로드 연습2</a>
+				      <a class="dropdown-item" href="${ctp}/FileUpLoad4.st">다중 업로드 연습3</a>
 				    </div>
 				  </div>  
 		      </li>
