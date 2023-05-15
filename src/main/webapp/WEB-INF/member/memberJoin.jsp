@@ -111,6 +111,35 @@
 			nameOk="true";			
 		}
 		
+		//사진 처리
+		let photoName = document.getElementById("photoFile").value;
+		
+		let photoNameExe = photoName.substring(photoName.lastIndexOf(".")+1).toLowerCase();
+		
+		let maxSize = 1024*1024*10;
+		
+		
+		if(photoName.trim()==""){
+			photoName="noimage.jpg";
+		}
+		else if(photoName.trim()!=""){
+			let fileSize = document.getElementById("photoFile").files[0].size;
+			
+			if(photoNameExe!="jpg" && photoNameExe!="png" && photoNameExe!="gif" ){
+				alert("프로필 사진으로 업로드 가능한 이미지는 jpg,png,gif 확장자를 가진 이미지 파일입니다.");
+				return false;
+			}
+			
+			if(fileSize>maxSize){
+				alert("프로필 사진으로 업로드 가능한 이미지의 크기는 10mb까지입니다.");
+				return false;
+			}
+		
+		}
+		
+		
+		
+		
 		//이메일 검사
 		if(email1==""){
 			alert("이메일을 입력하세요!");
@@ -208,13 +237,14 @@
 	}
 	
 	
+	
 	</script>
 </head>
 <body>
 <jsp:include page="/include/header.jsp"/>
 <p><br/></p>	
 	<div class="container">
-		<form name="myform" method="post" action="${ctp}/MemberJoinOk.mem" class="was-validated">
+		<form name="myform" method="post" action="${ctp}/MemberJoinOk2.mem" class="was-validated" enctype="multipart/form-data">
     <h2>회 원 가 입</h2>
     <br/>
     <div class="form-group">
@@ -386,8 +416,8 @@
       </div>
     </div>
     <div  class="form-group">
-      회원 사진(파일용량:2MByte이내) :
-      <input type="file" name="fName" id="file" class="form-control-file border"/>
+      회원 사진(파일용량:10MByte이내) :
+      <input type="file" name="photoFile" id="photoFile" class="form-control-file border"/>
     </div>
     <button type="button" class="btn btn-secondary" onclick="fCheck()">회원가입</button> &nbsp;
     <button type="reset" class="btn btn-secondary">다시작성</button> &nbsp;

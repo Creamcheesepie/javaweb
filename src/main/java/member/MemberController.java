@@ -43,8 +43,8 @@ public class MemberController extends HttpServlet {
 			command.execute(request, response);
 			viewPage +="/memberNickNameCheck.jsp";
 		}
-		else if(com.equals("/MemberJoinOk")) {
-			command = new MemberJoinOkCommand();
+		else if(com.equals("/MemberJoinOk2")) {
+			command = new MemberJoinOkCommand2();
 			command.execute(request, response);
 			viewPage ="/include/message.jsp";
 		}

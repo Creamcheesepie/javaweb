@@ -37,7 +37,7 @@ public class FileUpLoad1OkCommand implements StudyInterface {
 		MultipartRequest multiPartRequest = new MultipartRequest(request,realPath,maxSize,encoding,new DefaultFileRenamePolicy());
 		
 		
-		//업로드된 파일의 추출해보자~
+		//업로드된 파일을 추출해보자~
 		String originalFileName = multiPartRequest.getOriginalFileName("fname");
 		String originalFilesystemName =  multiPartRequest.getFilesystemName("fname");
 		
