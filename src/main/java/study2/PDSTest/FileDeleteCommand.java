@@ -24,12 +24,14 @@ public class FileDeleteCommand implements StudyInterface {
 		 String res = "0";
 		 
 		 if(file.exists()) {
-			 res="1";
 			 System.out.println(res);
 			 file.delete();
+			 res="1";
 		 }
 		 
 		 response.getWriter().write(res);
 	}
+	//주의점 : 소스코드와 데이터베이스까지 백업 했던 것에서 이젠 데이터 파일까지 백업해둘것!
+	// 프로젝트 완료 후에는 소스코드 파일과, 데이터베이스 파일, 이미지 데이터 파일 3개를 제출한다.
 
 }
