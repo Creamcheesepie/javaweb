@@ -7,32 +7,44 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 public class MemberUpdateOkCommand implements MemberInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse resonse) throws ServletException, IOException {
+		String realPath = request.getServletContext().getRealPath("/images/member/");
+		int maxSize = 1024*1023*10;
+		String encoding = "UTF-8";
+				
+		MultipartRequest mPRequest = new MultipartRequest(request, realPath,maxSize,encoding,new DefaultFileRenamePolicy());
+		
+		
+		
 		//회원 사진이 업로드 되었는지 여부?
-		String photo = "noimage.jpg";
+		String photo = mPRequest.getFilesystemName("photoFile");
+		
 		
 		HttpSession session = request.getSession();
 		
 		String mid = (String) session.getAttribute("sMid");
 		String oldNickName = (String) session.getAttribute("sNickName");
-		String nickName =request.getParameter("nickName")==null?"":request.getParameter("nickName");
-		String name =request.getParameter("name")==null?"":request.getParameter("name");
-		String gender =request.getParameter("gender")==null?"":request.getParameter("gender");
+		String nickName =mPRequest.getParameter("nickName")==null?"":mPRequest.getParameter("nickName");
+		String name =mPRequest.getParameter("name")==null?"":mPRequest.getParameter("name");
+		String gender =mPRequest.getParameter("gender")==null?"":mPRequest.getParameter("gender");
 		
-		String birthday =request.getParameter("birthday")==null?"":request.getParameter("birthday");
-		String tel =request.getParameter("tel")==null?"":request.getParameter("tel");
-		String address =request.getParameter("address")==null?"":request.getParameter("address");
-		String email =request.getParameter("email")==null?"":request.getParameter("email");
-		String homePage =request.getParameter("homePage")==null?"":request.getParameter("homePage");
+		String birthday =mPRequest.getParameter("birthday")==null?"":mPRequest.getParameter("birthday");
+		String tel =mPRequest.getParameter("tel")==null?"":mPRequest.getParameter("tel");
+		String address =mPRequest.getParameter("address")==null?"":mPRequest.getParameter("address");
+		String email =mPRequest.getParameter("email")==null?"":mPRequest.getParameter("email");
+		String homePage =mPRequest.getParameter("homePage")==null?"":mPRequest.getParameter("homePage");
 		
-		String job =request.getParameter("job")==null?"":request.getParameter("job");
-//		String photo =request.getParameter("photo")==null?"":request.getParameter("photo");
-		String content =request.getParameter("content")==null?"":request.getParameter("content");
-		String userInfoSw =request.getParameter("userInfoSw")==null?"":request.getParameter("userInfoSw");
-		String[] hobbys = request.getParameterValues("hobby");
+		String job =mPRequest.getParameter("job")==null?"":mPRequest.getParameter("job");
+//		String photo =mPRequest.getParameter("photo")==null?"":mPRequest.getParameter("photo");
+		String content =mPRequest.getParameter("content")==null?"":mPRequest.getParameter("content");
+		String userInfoSw =mPRequest.getParameter("userInfoSw")==null?"":mPRequest.getParameter("userInfoSw");
+		String[] hobbys = mPRequest.getParameterValues("hobby");
 		String hobby = "";
 		System.out.println(address);
 		System.out.println(content);

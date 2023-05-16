@@ -34,7 +34,7 @@
 		      </li>
 	      <c:if test="${sLevel>1 || sLevel==0}">
 		      <li class="nav-item">
-		        <a class="nav-link" href="#">PDS</a>
+		        <a class="nav-link" href="${ctp}/PdsList.pds">PDS</a>
 		      </li>
 		      <li>
 				  <div class="dropdown">

@@ -170,7 +170,7 @@
 		let postcode = myform.postcode.value + " ";
 		let roadAddress = myform.roadAddress.value + " ";
 		let detailAddress = myform.detailAddress.value + " ";
-		let extraAddress = myform.extraAddress.value;
+		let extraAddress = myform.extraAddress.value + " "; //공백을 넣어주는 이유? : 
 		myform.address.value  = postcode +"/"+ roadAddress +"/"+ detailAddress+"/"+ extraAddress +"/";
 		
 		//
