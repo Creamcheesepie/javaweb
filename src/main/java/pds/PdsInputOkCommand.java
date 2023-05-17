@@ -81,6 +81,10 @@ public class PdsInputOkCommand implements PdsInterface {
 		
 		int res = dao.setPdsInputOk(vo);
 		
+		int nowPage = request.getParameter("nowPage")==null?0: Integer.parseInt(request.getParameter("nowPage"));
+		int pageSize = request.getParameter("pageSize")==null?0: Integer.parseInt(request.getParameter("pageSize"));
+		request.setAttribute("nowPage", nowPage);
+		request.setAttribute("pageSize", pageSize);
 		
 		if(res==1) {
 		request.setAttribute("msg", "자료실에 자료를 등록하였습니다~");

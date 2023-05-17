@@ -115,7 +115,7 @@
 			<div class="mt-2">
 				<input type="button" value="업로드" onclick="fCheck()" class="btn btn-success"/>&nbsp;
 				<input type="reset" value="다시입력"  class="btn btn-warning"/>&nbsp;
-				<input type="button" value="돌아가기" onclick="location.href='${ctp}/PdsList.psd?part=${part};'" class=" btn btn-secondary"/>
+				<input type="button" value="돌아가기" onclick="location.href='${ctp}/PdsList.psd?part=${part}&pageSize=${pageSize}&nowPage=${nowPage};'" class=" btn btn-secondary"/>
 			</div>
 			<input type="hidden" name="fileSize"/>
 			<input type="hidden" name="hostIp" value="${pageContext.request.remoteAddr}"/>

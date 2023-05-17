@@ -17,6 +17,11 @@ public class PDSVO {
 	private String hostIp;
 	
 	
+	private int date_diff;
+	private int hour_diff;
+	
+	
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -95,6 +100,18 @@ public class PDSVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public int getDate_diff() {
+		return date_diff;
+	}
+	public void setDate_diff(int date_diff) {
+		this.date_diff = date_diff;
+	}
+	public int getHour_diff() {
+		return hour_diff;
+	}
+	public void setHour_diff(int hour_diff) {
+		this.hour_diff = hour_diff;
+	}
 	public String getHostIp() {
 		return hostIp;
 	}
@@ -105,9 +122,10 @@ public class PDSVO {
 	
 	@Override
 	public String toString() {
-		return "PDSVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", fName=" + fName + ", fSName=" + fSName
-				+ ", fSize=" + fSize + ", title=" + title + ", part=" + part + ", pwd=" + pwd + ", fDate=" + fDate
-				+ ", downNum=" + downNum + ", openSw=" + openSw + ", content=" + content + ", hostIp=" + hostIp + "]";
+		return "PDSVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", fName=" + fName + ", fSName="
+				+ fSName + ", fSize=" + fSize + ", title=" + title + ", part=" + part + ", pwd=" + pwd + ", fDate="
+				+ fDate + ", downNum=" + downNum + ", openSw=" + openSw + ", content=" + content + ", hostIp=" + hostIp
+				+ ", date_diff=" + date_diff + ", hour_diff=" + hour_diff + "]";
 	}
 	
 	

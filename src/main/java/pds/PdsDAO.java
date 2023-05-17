@@ -20,17 +20,23 @@ public class PdsDAO {
 	PDSVO vo = null;
 
 	//파트별 전체자료 가져오기
-	public ArrayList<PDSVO> getPdsList(String part) {
+	public ArrayList<PDSVO> getPdsList(String part,int startIndexNo,int pageSize) {
 		ArrayList<PDSVO> vos = new ArrayList<>();
 		try {
 			if(part.equals("전체")) {
-				sql="select * from pds order by idx desc";
+				sql="select *, datediff(now(),fDate) as date_diff, timestampdiff(hour,fDate,now()) as hour_diff "
+						+ "from pds order by idx desc limit ? ,?";
 				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, startIndexNo);
+				pstmt.setInt(2, pageSize);
 			}
 			else {
-				sql="select * from pds where part=?";
+				sql="select * , datediff(now(),fDate) as date_diff, timestampdiff(hour,fDate,now()) as hour_diff "
+						+ "from pds where part=? order by idx desc limit ? ,?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, part);
+				pstmt.setInt(2, startIndexNo);	
+				pstmt.setInt(3, pageSize);
 			}
 			
 			rs = pstmt.executeQuery();
@@ -52,6 +58,8 @@ public class PdsDAO {
 				vo.setContent(rs.getString("content"));
 				vo.setHostIp(rs.getString("hostIp"));
 				
+				vo.setDate_diff(rs.getInt("date_diff"));
+				vo.setHour_diff(rs.getInt("hour_diff"));
 				vos.add(vo);
 			}
 					
@@ -167,6 +175,30 @@ public class PdsDAO {
 		}
 		
 		return res;
+	}
+
+	public int getTotalRecordCount(String part) {
+		int trc = 0;
+		try {
+			if(part.equals("전체")) {
+				sql="select count(idx) as cnt from pds";
+				pstmt = conn.prepareStatement(sql);
+			}
+			else {
+				sql="select count(idx) as cnt from pds where part=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, part);
+			}
+			
+			rs = pstmt.executeQuery();
+			rs.next();
+			trc=rs.getInt("cnt");
+		} catch (SQLException e) {
+			System.out.println("sql 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return trc;
 	}
 
 	

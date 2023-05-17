@@ -12,11 +12,22 @@
 	<jsp:include page="/include/bs4.jsp"/>
 	<script>
 		'use strict';
-		
+		//페이징 처리
+		function pageCheck(){
+			let pageSize = document.getElementById("pageSize").value;
+			location.href="${ctp}/PdsList.pds?nowPage=${nowPage}&pageSize="+pageSize+"&part=${part}";
+			
+		}
+			jQuery(function(){
+        if(${totalPage} < ${nowPage}){
+	        let pageSize = document.getElementById("pageSize").value;
+	        location.href = "${ctp}/PdsList.pds?part=${part}&pageSize="+pageSize+"&nowPage=${totalPage}";
+		  	}
+			});
 		//파트 선택시 해당 part만 불러오기
 		function partCheck(){
 			let part = partForm.part.value;
-			location.href="${ctp}/PdsList.pds?part="+part;
+			location.href="${ctp}/PdsList.pds?part="+part+"&pageSize=${pageSize}&nowPage=${nowPage}";
 		}
 		
 		//다운로드 횟수 증가처리(ajax)
@@ -110,6 +121,8 @@
 			
 		}
 		
+		 
+		
 	</script>
 </head>
 <body>
@@ -133,7 +146,15 @@
 				</form>
 			</td>
 			<td class="text-right">
-				<a href="${ctp}/PdsInput.pds?part=${part}" class="btn btn-success">자료 올리기</a>
+					<select name="pageSize" id="pageSize" onchange="pageCheck()">
+						<option <c:if test="${pageSize==5}">selected</c:if>>5</option>
+						<option <c:if test="${pageSize==10}">selected</c:if>>10</option>
+						<option <c:if test="${pageSize==15}">selected</c:if>>15</option>
+						<option <c:if test="${pageSize==20}">selected</c:if>>20</option>
+					</select>건 표시
+				</td>
+			<td class="text-right">
+				<a href="${ctp}/PdsInput.pds?part=${part}&pageSize=${pageSize}&nowPage=${nowPage}" class="btn btn-success">자료 올리기</a>
 			</td>
 		</tr>
 	</table>
@@ -152,9 +173,18 @@
 		<c:forEach var="vo" items="${vos}" varStatus="st">
 			<tr>
 				<td>${vo.idx}</td>
-				<td>${vo.title}</td> <!-- 게시판이랑 똑같이 new 표시. 타이틀에 달린 링크 클릭시 새창으로 표시(새 창에 내용을 멋지게 띄우기)>>이거 가능하면 mordal창에 띄우기 -->
+				<td>
+				<c:if test="${vo.hour_diff<=24}"><img src="${ctp}/images/new.gif"/></c:if>
+				${vo.title}
+				</td> <!-- 게시판이랑 똑같이 new 표시. 타이틀에 달린 링크 클릭시 새창으로 표시(새 창에 내용을 멋지게 띄우기)>>이거 가능하면 mordal창에 띄우기 -->
 				<td>${vo.nickName}</td>
-				<td>${vo.fDate}</td>
+				<td>
+					<c:if test="${vo.date_diff==1}">
+						<c:if test="${vo.hour_diff<=24}">${fn:substring(vo.fDate,0,10)}</c:if>
+					</c:if>
+					<c:if test="${vo.hour_diff<=24}">${fn:substring(vo.fDate,10,16)}</c:if>
+					<c:if test="${vo.hour_diff>24}">${fn:substring(vo.fDate,0,10)}</c:if>	
+				</td>
 				<td>${vo.part}</td>
 				<td>
 					<c:set var="fNames" value="${fn:split(vo.fName,'/')}"/>
@@ -175,6 +205,17 @@
 		</c:forEach>
 		<tr><td colspan="8" class="m-0 p-0"></td></tr>
 	</table>
+	<!-- 블록페이지 -->
+	<ul class="pagination text-center justify-content-center border-secondary pagination-sm">	
+				<c:if test="${nowPage>1}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/PdsList.pds?part=${part}&pageSize=${pageSize}&nowPage=1">첫페이지</a></li></c:if>
+				<c:if test="${curBlock>0}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/PdsList.pds?part=${part}&pageSize=${pageSize}&nowPage=${(curBlock-1)*blockSize+1}">이전블록</a></li></c:if>
+				<c:forEach var="i" begin="${curBlock*blockSize+1}" end="${curBlock*blockSize + blockSize}" varStatus="st">
+					<c:if test="${i<=totalPage && i== nowPage}"><li class="page-item active bg-secondary"><a class="page-link bg-secondary" href="#">${i}</a></li></c:if>
+					<c:if test="${i<=totalPage && i!= nowPage}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/PdsList.pds?part=${part}&pageSize=${pageSize}&nowPage=${i}">${i}</a></li></c:if>
+				</c:forEach>
+				<c:if test="${curBlock<lastBlock}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/PdsList.pds?part=${part}&pageSize=${pageSize}&nowPage=${(curBlock+1)*blockSize+1}">다음블록</a></li></c:if>
+				<c:if test="${nowPage<totalPage}"><li class="page-item"><a class="page-link  text-secondary" href="${ctp}/PdsList.pds?part=${part}&pageSize=${pageSize}&nowPage=${totalPage}">마지막페이지</a></li></c:if>
+			</ul>
 	</div>
 				<!-- 패스워드 모달로 받기 -->
 				<!-- The Modal -->
