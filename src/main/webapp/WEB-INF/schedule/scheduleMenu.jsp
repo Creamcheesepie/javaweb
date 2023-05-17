@@ -88,6 +88,10 @@
 			
 		}
 		
+		function updateCheck(idx,part,content){
+			
+		}
+		
 	</script>
 </head>
 <body>

@@ -46,7 +46,7 @@
 			</tr>
 			<tr>
 			
-				<!-- 시작일 이전을 공백처리한다.(오늘이 월요일이면 startWeek가 2이기에 1칸ㅇ르 공백처리한다. -->
+				<!-- 시작일 이전을 공백처리한다.(오늘이 월요일이면 startWeek가 2이기에 1칸을 공백처리한다. -->
 				<c:set var="gap" value="1"/>
 				<%-- <c:forEach begin="1" end="${startWeek-1}">
 					<td>&nbsp;</td>
