@@ -64,6 +64,9 @@
 				      <a class="dropdown-item" href="${ctp}/FileUpLoad2.st">다중 업로드 연습</a>
 				      <a class="dropdown-item" href="${ctp}/FileUpLoad3.st">다중 업로드 연습2</a>
 				      <a class="dropdown-item" href="${ctp}/FileUpLoad4.st">다중 업로드 연습3</a>
+				      <a class="dropdown-item" href="${ctp}/ModalTest2.st">modaltest2</a>
+				      <a class="dropdown-item" href="${ctp}/Calendar.st">달력연습1</a>
+				      <a class="dropdown-item" href="${ctp}/Calendar2.st">달력연습2</a>
 				    </div>
 				  </div>  
 		      </li>
@@ -86,6 +89,7 @@
 				   	<div class="dropdown-menu">
 				   		<c:if test="${sLevel>1 || sLevel==0}"> <!-- 회원 등급별로 보이게하기 -->
 					      <a class="dropdown-item" href="${ctp}/MemberMain.mem">회원전용방</a>
+					      <a class="dropdown-item" href="${ctp}/ScheduleList.sc">일정관리</a>
 					      <a class="dropdown-item" href="${ctp}/MemberList.mem">회원목록</a>
 				      </c:if>
 					    <a class="dropdown-item" href="${ctp}/MemberPwdUpdate.mem">회원비밀번호 변경</a>

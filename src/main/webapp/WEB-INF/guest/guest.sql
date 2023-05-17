@@ -12,4 +12,4 @@ create table guest(
 desc quest;
 insert into guest values (default,'관리자','방명록서비스를 시작합니다.','glndbs1004@naver.com','gnldbs1004.naver.com',default,'192.168.50.88');
 
-select *from guest;
+select * from guest;

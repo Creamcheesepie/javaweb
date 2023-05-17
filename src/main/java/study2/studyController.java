@@ -23,6 +23,8 @@ import study2.ajax2.UserInputCommand;
 import study2.ajax2.UserListCommand;
 import study2.ajax2.UserSearchCommand;
 import study2.ajax2.UserUpdateCommand;
+import study2.calendar.Calendar2Command;
+import study2.calendar.CalendarCommand;
 
 @WebServlet("*.st")
 public class studyController extends HttpServlet {
@@ -136,6 +138,21 @@ public class studyController extends HttpServlet {
 			command = new FileDeleteCommand();
 			command.execute(request, response);
 			viewPage +="/PDSTest/downLoad.jsp";
+		}
+		else if(com.equals("/ModalTest2")) {
+			command = new ModalTest2Command();
+			command.execute(request, response);
+			viewPage +="/modaltest2.jsp";
+		}
+		else if(com.equals("/Calendar")) {
+			command = new	CalendarCommand();
+			command.execute(request, response);
+			viewPage +="/calendar/calendar.jsp";
+		}
+		else if(com.equals("/Calendar2")) {
+			command = new	Calendar2Command();
+			command.execute(request, response);
+			viewPage +="/calendar/calendar2.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
