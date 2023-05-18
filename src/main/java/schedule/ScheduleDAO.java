@@ -81,6 +81,26 @@ public class ScheduleDAO {
 		return res;
 	}
 
+
+	public String setUpdateSchedule(ScheduleVO vo) {
+		String res = "0";
+		try {
+			sql = "update schedule set part=?, content=? where idx=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getPart());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setInt(3, vo.getIdx());
+			pstmt.executeUpdate();
+			res="1";
+		} catch (SQLException e) {
+			System.out.println("sql오류" + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		
+		return res;
+	}
+
 	
 	
 	

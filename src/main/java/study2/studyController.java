@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import study2.Api.CrimeApiCommand;
+import study2.Api.SaveCrimeDataCommand;
+import study2.Api.SaveCrimeDeleteCommand;
+import study2.Api.SearchCrimeDataCommand;
+import study2.Api.SerchCrimeByPoliceOrderCommand;
 import study2.PDSTest.DownLoadCommand;
 import study2.PDSTest.FileDeleteCommand;
 import study2.PDSTest.FileDownLoadCommand;
@@ -154,6 +159,35 @@ public class studyController extends HttpServlet {
 			command.execute(request, response);
 			viewPage +="/calendar/calendar2.jsp";
 		}
+		else if(com.equals("/ApiTest")) {
+			viewPage +="/api/apiTest.jsp";
+		}
+		else if(com.equals("/CrimeApi")) {
+			command = new	CrimeApiCommand();
+			command.execute(request, response);
+			viewPage +="/api/crime/crimeApi.jsp";
+		}
+		else if(com.equals("/SaveCrimeData")) {
+			command = new	SaveCrimeDataCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/SaveCrimeDelete")) {
+			command = new	SaveCrimeDeleteCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/SearchCrimeData")) {
+			command = new	SearchCrimeDataCommand();
+			command.execute(request, response);
+			viewPage +="/api/crime/crimeApi.jsp";
+		}
+		else if(com.equals("/SerchCrimeByPoliceOrder")) {
+			command = new	SerchCrimeByPoliceOrderCommand();
+			command.execute(request, response);
+			viewPage +="/api/crime/crimeApi.jsp";
+		}
+		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
