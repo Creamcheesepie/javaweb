@@ -170,7 +170,7 @@
 		let postcode = myform.postcode.value + " ";
 		let roadAddress = myform.roadAddress.value + " ";
 		let detailAddress = myform.detailAddress.value + " ";
-		let extraAddress = myform.extraAddress.value + " "; //공백을 넣어주는 이유? : 
+		let extraAddress = myform.extraAddress.value + " "; //공백을 넣어주는 이유? : 나중에 정보 수정시 값 불러오기 용이하게 하기 위함.
 		myform.address.value  = postcode +"/"+ roadAddress +"/"+ detailAddress+"/"+ extraAddress +"/";
 		
 		//
@@ -430,3 +430,6 @@
 <jsp:include page="/include/footer.jsp"/>
 </body>
 </html>
+
+
+speed duration time rideInfo

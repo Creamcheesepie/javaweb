@@ -11,6 +11,31 @@
 	<jsp:include page="/include/bs4.jsp"/>
 	<script>
 		if(${sLevel == 1 }) alert("준회원입니다. 운영자 및 관리자의 승인이 있거나, 방명록에 게시글 5개 이상 작성하고 10번 이상 방문해주시면 자동으로 등업됩니다.")
+		
+		function chatInput(){
+			let chat = $("#chat").val();
+			
+			if(chat.trim() != ""){
+				$.ajax({
+					type:"post",
+					url:"${ctp}/MemberMessageInput.mem",
+					data:{chat:chat},
+					error : function(){
+						alert("전송오류!");
+					}
+				});
+			}
+		}
+		
+		$(function(){
+			$("#chat").on("keydown",function(e){
+				if(e.keyCode == 13){
+					chatInput();
+				}
+			})
+		});
+		
+		
 	</script>
 </head>
 <body>
@@ -117,7 +142,22 @@
 						<c:if test="${pag<totalPage}"><li class="page-item"><a class="page-link  text-secondary" href="${ctp}/MemberMain.mem?pageSize=${pageSize}&pag=${totalPage}">마지막페이지</a></li></c:if>
 					</ul>
 				</div>
+		</div>	
+		<!-- 실시간 대화내용 확인하기 -->
+		<div style="width:460px">
+			<form name="shatform">
+				<label for="chat"><b>실시간 대화방</b></label>
+				<iframe src="${ctp}/include/memberMessage.jsp" class="border" width="100%" height="200px">
+				</iframe>
+				<div class="input-group mb-1">
+					<input type="text" class="form-control" name="chat" id="chat"  placeholder="내용을 입력하세요">
+					<div class="input-group-append">
+						<input type="button" value="글 등록" onclick="chatInput()" class="btn btn-success">
+					</div>
+				</div>
+			</form>
 		</div>
+		
 	</div>
 		
 	</div>

@@ -187,6 +187,12 @@ public class studyController extends HttpServlet {
 			command.execute(request, response);
 			viewPage +="/api/crime/crimeApi.jsp";
 		}
+		else if(com.equals("/PhotoView1")) {
+			viewPage +="/photo/photoView1.jsp";
+		}
+		else if(com.equals("/PhotoView2")) {
+			viewPage +="/photo/photoView2.jsp";
+		}
 		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
